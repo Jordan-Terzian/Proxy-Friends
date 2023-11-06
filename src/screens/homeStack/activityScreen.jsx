@@ -3,21 +3,21 @@ import { StyleSheet, Text, View } from "react-native";
 import SelectButton from "../../components/selectButton/selectButton";
 import { options } from "./homeScreenOptions";
 
-const PeopleScreen = ({ navigation }) => {
+const ActivityScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SelectButton
         options={options}
-        selected="People"
+        selected="Activities"
         navigation={navigation}
       />
-      <Text>This is the People Screen</Text>
+      <Text>This is the Activity Screen</Text>
       <StatusBar style="auto" />
     </View>
   );
 };
 
-export default PeopleScreen;
+export default ActivityScreen;
 
 const styles = StyleSheet.create({
   container: {
