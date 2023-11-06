@@ -1,16 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import SelectButton from "../../components/selectButton/selectButton";
-import { options } from "./homeScreenOptions";
 
 const PeopleScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <SelectButton
-        options={options}
-        selected="People"
-        navigation={navigation}
-      />
       <Text>This is the People Screen</Text>
       <StatusBar style="auto" />
     </View>

@@ -1,13 +1,8 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-const SelectOption = ({ navigation, selected, children }) => {
-  const handlePress = () => {
-    if (!selected) {
-      navigation.navigate(children);
-    }
-  };
+const SelectOption = ({ handlePress, selected, children }) => {
   return (
-    <Pressable onPress={handlePress}>
+    <Pressable onPress={() => handlePress(children)}>
       <View style={selected ? styles.selected : null} onP>
         <Text
           style={[selected ? styles.selectedText : null, styles.selectionText]}
@@ -19,11 +14,11 @@ const SelectOption = ({ navigation, selected, children }) => {
   );
 };
 
-const SelectButton = ({ navigation, options, selected }) => {
+const SelectButton = ({ handlePress, options, selected }) => {
   return (
     <View style={[styles.row, styles.container]}>
       {options.map((option, _) => (
-        <SelectOption selected={option === selected} navigation={navigation}>
+        <SelectOption selected={option === selected} handlePress={handlePress}>
           {option}
         </SelectOption>
       ))}

@@ -6,11 +6,6 @@ import { options } from "./homeScreenOptions";
 const ActivityScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <SelectButton
-        options={options}
-        selected="Activities"
-        navigation={navigation}
-      />
       <Text>This is the Activity Screen</Text>
       <StatusBar style="auto" />
     </View>
