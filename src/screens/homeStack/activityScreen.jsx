@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import ImageCard from "../../components/imageCard/imageCard";
 import Assets from "../../constants/assets";
-import ActivityDetails from "./activityDetails";
+import Details from "./details";
 
 const ActivityScreen = ({ navigation }) => {
   // TODO: Update this to pass in the details data.
@@ -34,7 +34,7 @@ const ActivityScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageCard imgSrc={Assets.activities.tennis}>
-        <ActivityDetails data={activityDetailData} />
+        <Details data={activityDetailData} />
       </ImageCard>
       <StatusBar style="auto" />
     </View>

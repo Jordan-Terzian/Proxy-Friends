@@ -1,13 +1,23 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import { default as MaterialCommunityIcon } from "react-native-vector-icons/MaterialCommunityIcons";
+import { default as MaterialIcon } from "react-native-vector-icons/MaterialIcons";
 import Theme from "../../constants/theme";
 
-const ActivityDetails = ({ data }) => {
+const Details = ({ data }) => {
   const renderItem = ({ item }) => {
     return (
       <View style={styles.row}>
         <View style={styles.iconContainer}>
-          <Icon name={item.icon} size={24.5} style={styles.icon} />
+          {item.type === "MaterialCommunicyIcons" && (
+            <MaterialCommunityIcon
+              name={item.icon}
+              size={24.5}
+              style={styles.icon}
+            />
+          )}
+          {item.type !== "MaterialCommunicyIcons" && (
+            <MaterialIcon name={item.icon} size={24.5} style={styles.icon} />
+          )}
           <View styles={{ flex: 1 }} />
         </View>
         <Text style={styles.text}>{item.detail}</Text>
@@ -46,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ActivityDetails;
+export default Details;
