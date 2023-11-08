@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     resizeMode: "cover",
     aspectRatio: 1,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    borderRadius: 10,
   },
   infoContainer: {
     width: "100%",
-    paddingHorizontal: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
   },
 });
 

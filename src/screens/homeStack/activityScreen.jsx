@@ -1,12 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import SelectButton from "../../components/selectButton/selectButton";
-import { options } from "./homeScreenOptions";
+import ImageCard from "../../components/imageCard/imageCard";
+import Assets from "../../constants/assets";
 
 const ActivityScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text>This is the Activity Screen</Text>
+      <ImageCard imgSrc={Assets.activities.tennis}>
+        <Text>Activity screen here</Text>
+      </ImageCard>
       <StatusBar style="auto" />
     </View>
   );
@@ -19,6 +21,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
 });
