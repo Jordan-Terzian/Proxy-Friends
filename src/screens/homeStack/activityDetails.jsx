@@ -6,7 +6,10 @@ const ActivityDetails = ({ data }) => {
   const renderItem = ({ item }) => {
     return (
       <View style={styles.row}>
-        <Icon name={item.icon} size={24.5} style={styles.icon} />
+        <View style={styles.iconContainer}>
+          <Icon name={item.icon} size={24.5} style={styles.icon} />
+          <View styles={{ flex: 1 }} />
+        </View>
         <Text style={styles.text}>{item.detail}</Text>
       </View>
     );
@@ -26,9 +29,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 8,
   },
+  iconContainer: {
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
   icon: {
     marginRight: 5,
     marginLeft: 1,
+    flex: 1,
   },
   text: {
     fontSize: Theme.fontSize.normal,
