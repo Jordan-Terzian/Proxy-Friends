@@ -21,12 +21,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   imageContainer: {
-    width: "100%",
-    height: undefined,
+    width: Metrics.screenWidth * 0.9,
+    height: Metrics.screenHeight * 0.35,
     alignItems: "center",
     justifyContent: "flex-start",
     resizeMode: "cover",
-    aspectRatio: 1,
     borderRadius: 10,
   },
   infoContainer: {
