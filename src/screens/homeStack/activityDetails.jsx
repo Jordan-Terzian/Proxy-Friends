@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: Theme.fontSize.normal,
     flexWrap: "wrap",
-    maxWidth: "90%",
+    flexShrink: 1,
   },
 });
 
