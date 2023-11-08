@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   infoContainer: {
-    width: "100%",
+    flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 5,
   },
