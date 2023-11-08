@@ -18,7 +18,11 @@ const SelectButton = ({ handlePress, options, selected }) => {
   return (
     <View style={[styles.row, styles.container]}>
       {options.map((option, _) => (
-        <SelectOption selected={option === selected} handlePress={handlePress}>
+        <SelectOption
+          key={option}
+          selected={option === selected}
+          handlePress={handlePress}
+        >
           {option}
         </SelectOption>
       ))}
