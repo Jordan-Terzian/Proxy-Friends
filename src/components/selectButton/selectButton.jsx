@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
     padding: 1,
   },
   row: {
-    flexDirection: "row", // Arrange children horizontally in a row
-    alignItems: "center", // Adjust alignment as needed
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 
