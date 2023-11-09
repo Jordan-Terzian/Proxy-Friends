@@ -7,17 +7,29 @@ import Details from "./details";
 const ActivityScreen = ({ navigation }) => {
   // TODO: Update this to pass in the details data.
   const activityDetailData = [
-    { id: "activityIcon", icon: "local-activity", detail: "Tennis" },
-    { id: "activityLocation", icon: "location-pin", detail: "Melbourne Park" },
+    {
+      id: "activityIcon",
+      icon: "local-activity",
+      detail: "Tennis",
+      type: "iconItem",
+    },
+    {
+      id: "activityLocation",
+      icon: "location-pin",
+      detail: "Melbourne Park",
+      type: "iconItem",
+    },
     {
       id: "activityTime",
       icon: "event",
       detail: "12/12/2023, 12pm - 2pm",
+      type: "iconItem",
     },
     {
       id: "activityAttendees",
       icon: "groups",
       detail: "10 attendees",
+      type: "iconItem",
     },
     {
       id: "activityHost",
@@ -29,6 +41,7 @@ const ActivityScreen = ({ navigation }) => {
       icon: "notes",
       detail:
         "Come join me and my friend for a fun game of tennis hahahahahahahha. I want to make this very long for testing purpose. omggfdklfjdalfjadlksfjlkdasjflkdasjfkladsjfkldasjfkladsjfkldasjfkladsjfkl  fdfadsfda dfdasfasdfsdfdsafkasdjflkadsjflkdas;flkdasjflkadsjflkdasjflkasjdflkadsjflkasjdfkljsdlkfjsd;alkfjlkasjflksadjskfjslk",
+      type: "iconItem",
     },
   ];
   return (
