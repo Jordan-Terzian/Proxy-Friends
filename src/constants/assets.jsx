@@ -9,6 +9,10 @@ const Assets = {
     tennis: require("../assets/activities/tennis.jpeg"),
     bouldering: require("../assets/activities/bouldering.jpeg"),
   },
+  images: {
+    greenTick: require("../assets/images/common/green-tick.png"),
+    redCross: require("../assets/images/common/red-cross.png"),
+  },
 };
 
 export default Assets;

@@ -10,13 +10,18 @@ const ImageCard = ({ imgSrc, children }) => {
     </View>
   );
 };
-
+console.log(Metrics.screenHeight);
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "flex-start",
     backgroundColor: "#DDE2F5",
-    height: Metrics.screenHeight * 0.75,
+    height:
+      Metrics.screenHeight > 800
+        ? Metrics.screenHeight * 0.74
+        : Metrics.screenHeight > 600
+        ? Metrics.screenHeight * 0.72
+        : Metrics.screenHeight * 0.69,
     width: Metrics.screenWidth * 0.9,
     borderRadius: 10,
   },

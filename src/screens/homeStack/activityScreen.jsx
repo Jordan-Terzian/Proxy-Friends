@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import ImageCard from "../../components/organisms/imageCard";
 import Assets from "../../constants/assets";
 import Details from "./details";
+import ActionsRow from "./actionsRow";
 
 const ActivityScreen = ({ navigation }) => {
   // TODO: Update this to pass in the details data.
@@ -35,6 +36,7 @@ const ActivityScreen = ({ navigation }) => {
       id: "activityHost",
       icon: "assignment-ind",
       detail: "Annie Huynh",
+      type: "iconItem",
     },
     {
       id: "activityNotes",
@@ -45,12 +47,21 @@ const ActivityScreen = ({ navigation }) => {
     },
   ];
   return (
-    <View style={styles.container}>
-      <ImageCard imgSrc={Assets.activities.tennis}>
-        <Details data={activityDetailData} />
-      </ImageCard>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <View style={styles.container}>
+        <ImageCard imgSrc={Assets.activities.tennis}>
+          <Details data={activityDetailData} />
+        </ImageCard>
+      </View>
+      <View style={styles.actionsRowContainer}>
+        <ActionsRow
+          rejectLabel="Discard"
+          onRejectPress={() => console.log("test1")}
+          acceptLabel="Join"
+          onAcceptPress={() => console.log("test2")}
+        />
+      </View>
+    </>
   );
 };
 
@@ -61,6 +72,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  actionsRowContainer: {
     justifyContent: "flex-start",
   },
 });
