@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import ImageCard from "../../components/organisms/imageCard";
 import Assets from "../../constants/assets";
 import Details from "./details";
+import ShapedButton from "../../components/atoms/shapedButton";
+import ActionsRow from "./actionsRow";
 
 const PeopleScreen = ({ navigation }) => {
   const personDetails = [
@@ -38,12 +40,21 @@ const PeopleScreen = ({ navigation }) => {
   ];
 
   return (
-    <View style={styles.container}>
-      <ImageCard imgSrc={Assets.users.mrBeast}>
-        <Details data={personDetails}></Details>
-      </ImageCard>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <View style={styles.container}>
+        <ImageCard imgSrc={Assets.users.mrBeast}>
+          <Details data={personDetails} />
+        </ImageCard>
+      </View>
+      <View style={styles.actionsRowContainer}>
+        <ActionsRow
+          rejectLabel="Discard"
+          onRejectPress={() => console.log("test1")}
+          acceptLabel="Seek Match"
+          onAcceptPress={() => console.log("test2")}
+        />
+      </View>
+    </>
   );
 };
 
@@ -54,6 +65,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  actionsRowContainer: {
     justifyContent: "flex-start",
   },
 });
