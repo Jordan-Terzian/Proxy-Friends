@@ -6,19 +6,34 @@ import Details from "./details";
 
 const PeopleScreen = ({ navigation }) => {
   const personDetails = [
-    { id: "profileIcon", icon: "person", detail: "Mr Beast" },
-    { id: "profileAge", icon: "cake", detail: "22" },
+    { id: "profileIcon", icon: "person", detail: "Mr Beast", type: "iconItem" },
+    { id: "profileAge", icon: "cake", detail: "22", type: "iconItem" },
     {
       id: "profileGender",
       icon: "gender-transgender",
       detail: "Male",
-      type: "MaterialCommunicyIcons", // Special case since for some reason MaterialIcon ones does not load..
+      iconType: "MaterialCommunicyIcons", // Special case since for some reason MaterialIcon ones does not load..
+      type: "iconItem",
     },
     {
       id: "activityNotes",
       icon: "note",
       detail:
         "Make this very long for testing purpose. omggfdklfjdalfjadlksfjlkdasjflkdasjfkladsjfkldasjfkladsjfkldasjfkladsjfkl  fdfadsfda dfdasfasdfsdfdsafkasdjflkadsjflkdas;flkdasjflkadsjflkdasjflkasjdflkadsjflkasjdfkljsdlkfjsd;alkfjlkasjflksadjskfjslk",
+      type: "iconItem",
+    },
+    {
+      id: "interests",
+      type: "interestsGrid",
+      interests: [
+        "Video games",
+        "Movies",
+        "Anime",
+        "Tennis",
+        "Sleeping",
+        "Gym",
+        "Some thing very long",
+      ],
     },
   ];
 
