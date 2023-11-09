@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import Theme from "../../constants/theme";
 import Tooltip from "rn-tooltip";
+import Metrics from "../../constants/metrics";
 
 const Tag = ({ value }) => {
   return (
@@ -22,6 +23,8 @@ const styles = StyleSheet.create({
     borderRadius: 31,
     minWidth: 97,
     minHeight: 30,
+    width: Metrics.screenWidth * 0.2,
+    maxWidth: 120,
     zIndex: 1,
   },
   text: {
