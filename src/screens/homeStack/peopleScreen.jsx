@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import ImageCard from "../../components/imageCard/imageCard";
+import ImageCard from "../../components/organisms/imageCard";
 import Assets from "../../constants/assets";
 import Details from "./details";
 

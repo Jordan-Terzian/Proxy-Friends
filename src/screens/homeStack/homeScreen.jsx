@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import SelectButton from "../../components/selectButton/selectButton";
+import SelectButton from "../../components/atoms/selectButton";
 import ActivityScreen from "./activityScreen";
 import PeopleScreen from "./peopleScreen";
 
