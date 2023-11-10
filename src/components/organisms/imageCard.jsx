@@ -10,7 +10,6 @@ const ImageCard = ({ imgSrc, children }) => {
     </View>
   );
 };
-console.log(Metrics.screenHeight);
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
