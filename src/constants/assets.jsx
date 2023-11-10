@@ -12,6 +12,7 @@ const Assets = {
   images: {
     greenTick: require("../assets/images/common/green-tick.png"),
     redCross: require("../assets/images/common/red-cross.png"),
+    eventCalendar: require("../assets/images/common/event.svg"),
   },
 };
 
