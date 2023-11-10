@@ -21,7 +21,6 @@ const createStyles = (size) => StyleSheet.create({
         width: size * 1.4,
         aspectRatio: 1,
         justifyContent: 'center',
-        alignItems: 'center'
     }
 });
 

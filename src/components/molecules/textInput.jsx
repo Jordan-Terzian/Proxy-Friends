@@ -50,7 +50,7 @@ const TextInputIcon = ({
                 <IconButton
                     icon={hidden ? 'eye-off' : 'eye'}
                     onPress={toggleHidden}
-                    style={{}}
+                    style={styles.iconButtonStyle}
                 />
             )}
         </View>
@@ -62,19 +62,22 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#DDE2F5',
-        flexDirection: 'row',
         borderRadius: 50,
         height: Metrics.screenWidth * 0.09,
         minHeight: 34,
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: Metrics.screenWidth * 0.035,
-        columnGap: 5
     },
     counter: {
         textAlign: 'right',
         color: '#636363'
+    },
+    iconButtonStyle: {
+        position: 'absolute',
+        right: 10,
     }
 });
+
 
 export default TextInputIcon;
