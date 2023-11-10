@@ -32,7 +32,7 @@ const TextInputIcon = ({
 
     return (
         <View style={[styles.inputContainer, textInputProps.containerStyle]}>
-            {icon && <MaterialCommunityIcons name={icon} size={24} />}
+            {icon && <MaterialCommunityIcons name={icon} size={24} style={{color: '#636363', marginRight: 10}} />}
             <TextInput
                 onChangeText={handleTextChange}
                 maxLength={inputLimit ?? undefined}
@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
     },
     counter: {
         textAlign: 'right',
-        color: '#636363'
+        color: '#636363',
+        marginLeft: 'auto',
     },
     iconButtonStyle: {
         position: 'absolute',

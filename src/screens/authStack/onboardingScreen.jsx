@@ -44,7 +44,7 @@ const OnboardingScreen = () => {
           <Text>
             Don't have an account?
           </Text>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => navigation.navigate('AuthenticationDetails')}>
             <Text style={styles.registerLink}> Register</Text>
           </TouchableOpacity>
         </View>

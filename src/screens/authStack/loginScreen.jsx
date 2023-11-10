@@ -7,9 +7,13 @@ import authStyles from '../styles/authStackStyles';
 
 import Metrics from '../../constants/metrics';
 import ShapedButton from '../../components/atoms/shapedButton';
+import { useNavigation } from '@react-navigation/native';
 
 
 const LoginScreen = () => {
+
+  const navigation = useNavigation();
+  
   return (
     <SafeAreaView style={authStyles.safeAreaView} edges={[]}>
       <View style={[authStyles.container, styles.container]}>
@@ -40,7 +44,7 @@ const LoginScreen = () => {
           <Text>
             Don't have an account?
           </Text>
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={() => navigation.navigate('AuthenticationDetails')}>
             <Text style={styles.registerLink}> Register</Text>
           </TouchableOpacity>
         </View>
