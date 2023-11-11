@@ -3,6 +3,7 @@ import OnboardingScreen from '../screens/authStack/onboardingScreen';
 import LoginScreen from '../screens/authStack/loginScreen';
 import AuthenticationDetailsScreen from '../screens/registerStack/authenticationDetailsScreen';
 import PersonalDetailsScreen from '../screens/registerStack/personalDetailsScreen';
+import CustomiseYourProfileScreen from '../screens/registerStack/customiseYourProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,6 +13,7 @@ const AuthStack = () => {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="AuthenticationDetails" component={AuthenticationDetailsScreen} />
         <Stack.Screen name="PersonalDetails" component={PersonalDetailsScreen} />
+        <Stack.Screen name="CustomiseYourProfile" component={CustomiseYourProfileScreen} />
     </Stack.Navigator>;
 }
 
