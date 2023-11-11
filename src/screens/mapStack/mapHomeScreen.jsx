@@ -128,8 +128,8 @@ const MapHomeScreen = () => {
                 showsUserLocation={true}
             >
                 {
-                    locations.map((l)=>{
-                        return <Marker coordinate={{latitude: l.lat, longitude: l.long}} pinColor={l.color} title={l.title}
+                    locations.map((l, k)=>{
+                        return <Marker key={k} coordinate={{latitude: l.lat, longitude: l.long}} pinColor={l.color} title={l.title}
                                        description={l.description}/>
                     })
                 }
