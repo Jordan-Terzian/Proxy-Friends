@@ -1,11 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Svg, { Rect, SvgXml } from "react-native-svg";
 import HeaderNavigation from "../../components/molecules/headerNavigation";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import Assets from "../../constants/assets";
-import { Image } from "react-native-elements";
 import Metrics from "../../constants/metrics";
 
 const RoundedRectWithSvg = () => {
@@ -53,7 +52,14 @@ const AddEventScreen = ({ navigation }) => {
       />
       <View style={styles.eventFormContainer}>
         <Text style={styles.eventTitle}>Event Picture</Text>
-        <RoundedRectWithSvg />
+        <View style={styles.imageContainer}>
+          <RoundedRectWithSvg />
+          <Image
+            resizeMode="contain"
+            style={styles.editImage}
+            source={Assets.images.pencil}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -95,6 +101,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
   },
+  imageContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   eventPicture: {
     alignItems: "center",
     justifyContent: "center",
@@ -107,6 +118,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 20,
+  },
+  editImage: {
+    width: Metrics.screenWidth * 0.05,
+    top: (Metrics.screenWidth * 0.45) / 2 + Metrics.screenWidth * 0.05,
   },
   svg: {
     position: "absolute",
