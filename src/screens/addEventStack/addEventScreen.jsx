@@ -6,6 +6,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import Assets from "../../constants/assets";
 import Metrics from "../../constants/metrics";
+import TextInputIcon from "../../components/molecules/textInput";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const RoundedRectWithSvg = () => {
   const calendarSvg = `<svg width="77" height="80" viewBox="0 0 77 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,6 +62,64 @@ const AddEventScreen = ({ navigation }) => {
             source={Assets.images.pencil}
           />
         </View>
+        <View style={{ paddingTop: Metrics.screenWidth * 0.08 }}></View>
+        <View style={styles.activityFormInput}>
+          <Text style={styles.activityFormText}>Activity:</Text>
+          <TextInputIcon
+            placeholder="Enter Activity"
+            style={{ width: "70%" }}
+            containerStyle={{ justifyContent: "flex-start" }}
+          />
+        </View>
+        <View style={styles.activityFormInput}>
+          <Text style={styles.activityFormText}>Location:</Text>
+          <TextInputIcon
+            placeholder="Enter Location"
+            style={{ width: "70%" }}
+            containerStyle={{ justifyContent: "flex-start" }}
+          />
+        </View>
+        <View style={[styles.activityFormInput, { marginRight: 0 }]}>
+          <Text style={[styles.activityFormText, { flex: 1 }]}>Date:</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              alignContent: "center",
+            }}
+          >
+            <TextInputIcon
+              placeholder="DD/MM/YYYY"
+              style={{ width: "77%" }}
+              containerStyle={{ justifyContent: "flex-start" }}
+            />
+            <MaterialCommunityIcons
+              name="calendar-today"
+              size={24}
+              style={{ paddingTop: 6 }}
+            />
+          </View>
+        </View>
+        <View style={styles.activityFormInput}>
+          <Text style={styles.activityFormText}>Time:</Text>
+          <TextInputIcon
+            placeholder="HH:MM-HH:MM"
+            style={{ width: "70%" }}
+            containerStyle={{ justifyContent: "flex-start" }}
+          />
+        </View>
+        <Text style={[styles.activityFormText, { paddingBottom: 10 }]}>
+          Description:
+        </Text>
+        <TextInputIcon
+          placeholder="Enter Event Description"
+          style={{ width: "70%", paddingTop: Metrics.screenHeight * 0.05 }}
+          containerStyle={{
+            justifyContent: "flex-start",
+            paddingBottom: Metrics.screenHeight * 0.2,
+            borderRadius: 20,
+          }}
+        />
       </View>
     </SafeAreaView>
   );
@@ -103,6 +163,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flexDirection: "row",
+    paddingLeft: Metrics.screenWidth * 0.08,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -126,5 +187,17 @@ const styles = StyleSheet.create({
   },
   svg: {
     position: "absolute",
+  },
+  activityFormText: {
+    fontSize: 15,
+    fontWeight: "bold",
+    alignItems: "center",
+  },
+  activityFormInput: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginRight: 20,
+    paddingBottom: 10,
   },
 });
