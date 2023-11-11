@@ -8,6 +8,7 @@ import Assets from "../../constants/assets";
 import Metrics from "../../constants/metrics";
 import TextInputIcon from "../../components/molecules/textInput";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import BioInputField from "../../components/molecules/textInputMultiLine";
 
 const RoundedRectWithSvg = () => {
   const calendarSvg = `<svg width="77" height="80" viewBox="0 0 77 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,12 +112,11 @@ const AddEventScreen = ({ navigation }) => {
         <Text style={[styles.activityFormText, { paddingBottom: 10 }]}>
           Description:
         </Text>
-        <TextInputIcon
+        <BioInputField
           placeholder="Enter Event Description"
-          style={{ width: "70%", paddingTop: Metrics.screenHeight * 0.05 }}
+          style={{ width: "100%" }}
           containerStyle={{
             justifyContent: "flex-start",
-            paddingBottom: Metrics.screenHeight * 0.2,
             borderRadius: 20,
           }}
         />
