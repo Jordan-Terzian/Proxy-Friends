@@ -5,10 +5,14 @@ import SelectButton from "../../components/atoms/selectButton";
 import ActivityScreen from "./activityScreen";
 import PeopleScreen from "./peopleScreen";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ route, navigation }) => {
   const options = ["People", "Activities"];
+  const { tab, activityId } = route?.params || {};
+  const receivedDataTab = tab || options[0];
 
-  const [selectedTab, setSelectedTab] = useState(options[0]);
+  const [selectedTab, setSelectedTab] = useState(receivedDataTab);
+
+  console.log(receivedDataTab, selectedTab);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -24,7 +28,10 @@ const HomeScreen = ({ navigation }) => {
         <PeopleScreen navigation={navigation}></PeopleScreen>
       )}
       {selectedTab == "Activities" && (
-        <ActivityScreen navigation={navigation}></ActivityScreen>
+        <ActivityScreen
+          navigation={navigation}
+          activityId={activityId}
+        ></ActivityScreen>
       )}
       <StatusBar style="auto" />
     </SafeAreaView>

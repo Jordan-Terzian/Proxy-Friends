@@ -20,8 +20,7 @@ const PeopleScreen = ({ navigation }) => {
     {
       id: "activityNotes",
       icon: "note",
-      detail:
-        "Make this very long for testing purpose. omggfdklfjdalfjadlksfjlkdasjflkdasjfkladsjfkldasjfkladsjfkldasjfkladsjfkl  fdfadsfda dfdasfasdfsdfdsafkasdjflkadsjflkdas;flkdasjflkadsjflkdasjflkasjdflkadsjflkasjdfkljsdlkfjsd;alkfjlkasjflksadjskfjslk",
+      detail: "Make this very long ",
       type: "iconItem",
     },
     {

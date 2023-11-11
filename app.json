@@ -18,13 +18,15 @@
       "supportsTablet": true,
       "InfoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app uses your location to match you to nearby users and events."
-      }
+      },
+      "bundleIdentifier": "com.anonymous.PROXYFriends"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.PROXYFriends"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -53,13 +53,18 @@ const AddEventScreen = ({ navigation }) => {
   const [endTime, setEndTime] = useState(null);
   const [description, setDescription] = useState(null);
 
-  const handlePost = () => {
-    addNewEvent({
+  const handlePost = async () => {
+    const activityId = await addNewEvent({
       activity,
       location,
       startTime,
       endTime,
       description,
+    });
+    console.log("in add event activity id", activityId);
+    navigation.navigate("HomeScreen", {
+      tab: "Activities",
+      activityId,
     });
   };
 
