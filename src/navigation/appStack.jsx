@@ -5,7 +5,8 @@ import HomeStack from "./homeStack";
 import MapStack from "./mapStack";
 import MessagesStack from "./messagesStack";
 import ProfileStack from "./profileStack";
-import AddEventScreen from "../screens/addEventScreen";
+import AddEventScreen from "../screens/addEventStack/addEventScreen";
+import AddEventStack from "./addEventStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -45,7 +46,7 @@ const AppStack = () => {
     >
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Map" component={MapStack} />
-      <Tab.Screen name="Add Event" component={AddEventScreen} />
+      <Tab.Screen name="Add Event" component={AddEventStack} />
       <Tab.Screen name="Messages" component={MessagesStack} />
       <Tab.Screen name="Profile" component={ProfileStack} />
     </Tab.Navigator>
