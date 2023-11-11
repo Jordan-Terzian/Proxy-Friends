@@ -27,6 +27,8 @@ const VerificationScreen = () => {
             <HeaderNavigation
                 title=""
                 nextScreen="LocationDetails"
+                currentStep={4} 
+                totalSteps={6} 
             />
             <ScrollView nestedScrollEnabled={true}>
                 <View style={RegisterStyles.underHeaderContainer}>

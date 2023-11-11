@@ -39,6 +39,8 @@ const LocationDetailsScreen = () => {
             <HeaderNavigation
                 title=""
                 nextScreen="Interests"
+                currentStep={5}
+                totalSteps={6}
             />
             <View style={RegisterStyles.underHeaderContainer}>
                 <Text style={RegisterStyles.header1}>

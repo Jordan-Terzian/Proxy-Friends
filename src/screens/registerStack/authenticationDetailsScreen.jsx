@@ -17,6 +17,8 @@ const AuthenticationDetailsScreen = () => {
             <HeaderNavigation
                 title=""
                 nextScreen="PersonalDetails"
+                currentStep={1} // Update this value based on the current screen
+                totalSteps={6} // Total number of registration screens
             />
             <ScrollView nestedScrollEnabled={true}>
                 <View style={RegisterStyles.underHeaderContainer}>

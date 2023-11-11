@@ -51,7 +51,9 @@ const InterestsScreen = () => {
                 title=""
                 headerNextVisible={false}
                 addButtonVisible={true}
-                onAddPress={toggleOverlay} // Pass the handleAddPress function here
+                onAddPress={toggleOverlay} 
+                currentStep={6} 
+                totalSteps={6} 
             />
             <ScrollView nestedScrollEnabled={true}>
                 <View style={RegisterStyles.underHeaderContainer}>

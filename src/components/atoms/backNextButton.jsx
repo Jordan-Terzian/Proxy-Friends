@@ -25,7 +25,7 @@ const BackNextButton = ({
     }
 
     return (
-        <View style={direction === 'next' ? styles.mirrorFlip : {}} testID="back-button">
+        <View style={direction === 'next' ? styles.mirrorFlip : {}}>
             <HeaderBackButton
                 testID="back-button"
                 onPress={handlePress}

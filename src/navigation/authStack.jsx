@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { View } from 'react-native';
 import OnboardingScreen from '../screens/authStack/onboardingScreen';
 import LoginScreen from '../screens/authStack/loginScreen';
 import AuthenticationDetailsScreen from '../screens/registerStack/authenticationDetailsScreen';

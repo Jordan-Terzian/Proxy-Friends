@@ -28,6 +28,8 @@ const CustomiseYourProfileScreen = () => {
             <HeaderNavigation
                 title=""
                 nextScreen="Verification"
+                currentStep={3} 
+                totalSteps={6} 
             />
             <ScrollView nestedScrollEnabled={true}>
                 <View style={RegisterStyles.underHeaderContainer}>

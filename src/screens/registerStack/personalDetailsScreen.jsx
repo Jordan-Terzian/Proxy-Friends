@@ -33,6 +33,8 @@ const PersonalDetailsScreen = () => {
             <HeaderNavigation
                 title=""
                 nextScreen="CustomiseYourProfile"
+                currentStep={2} 
+                totalSteps={6} 
             />
             <ScrollView nestedScrollEnabled={true}>
                 <View style={RegisterStyles.underHeaderContainer}>
