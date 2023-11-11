@@ -22,13 +22,13 @@ const OnboardingScreen = () => {
         </Text>
         <ShapedButton
           label="Sign in with Apple"
-          onPress={() => { }}
+          onPress={() => navigation.navigate('AppStack')}
           image={require('../../assets/images/SSO/apple.png')}
           rectangular={true}
         />
         <ShapedButton
           label="Sign in with Google"
-          onPress={() => { }}
+          onPress={() => navigation.navigate('AppStack')}
           image={require('../../assets/images/SSO/google.png')}
           rectangular={true}
 

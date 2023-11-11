@@ -15,7 +15,7 @@ const Main = () => {
     <HeapNavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="AuthStack" component={AuthStack} />
-        {/* <Stack.Screen name="AppStack" component={AppStack} /> */}
+        <Stack.Screen name="AppStack" component={AppStack} />
       </Stack.Navigator>
     </HeapNavigationContainer>
   );

@@ -34,7 +34,7 @@ const LoginScreen = () => {
 
         <ShapedButton
           label="Login"
-          onPress={() => { }}
+          onPress={() => navigation.navigate('AppStack')}
         />
         <ShapedButton
           label="Forgot Password"

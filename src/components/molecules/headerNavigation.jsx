@@ -2,6 +2,7 @@ import React from 'react';
 
 import BackNextButton from '../atoms/backNextButton';
 import Header from '../atoms/header';
+import IconButton from '../atoms/iconButton';
 
 
 
@@ -11,6 +12,8 @@ const HeaderNavigation = ({
     backLabel = 'Back',
     headerBackVisible = true,
     headerNextVisible = true,
+    addButtonVisible = false,
+    onAddPress, // Accept an onAddPress prop
     nextLabel = 'Next',
     nextScreen,
     validate,
@@ -24,9 +27,9 @@ const HeaderNavigation = ({
                 labelVisible: true
             }}
             headerBackVisible={headerBackVisible}
-            headerRight={() => {
-                return (
-                    headerNextVisible && (
+            headerRight={() => (
+                <>
+                    {headerNextVisible && (
                         <BackNextButton
                             direction="next"
                             label={nextLabel}
@@ -34,9 +37,16 @@ const HeaderNavigation = ({
                             nextScreen={nextScreen}
                             validate={validate}
                         />
-                    )
-                );
-            }}
+                    )}
+                    {addButtonVisible && (
+                        <IconButton
+                            icon="plus"
+                            onPress={onAddPress} // Use the onAddPress prop here
+                            size={24}
+                        />
+                    )}
+                </>
+            )}
             {...props}
         />
     );
