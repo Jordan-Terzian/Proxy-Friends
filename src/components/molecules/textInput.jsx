@@ -39,6 +39,8 @@ const TextInputIcon = ({
                 placeholder={placeholder}
                 secureTextEntry={hidden}
                 value={text}
+                style ={{flex: 1}}
+                placeholderTextColor={'#636363'}
                 {...textInputProps}
             />
             {inputLimit && (
@@ -65,7 +67,6 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         height: Metrics.screenWidth * 0.09,
         minHeight: 34,
-        alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: Metrics.screenWidth * 0.035,
     },
