@@ -15,7 +15,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "InfoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app uses your location to match you to nearby users and events."
+      }
     },
     "android": {
       "adaptiveIcon": {

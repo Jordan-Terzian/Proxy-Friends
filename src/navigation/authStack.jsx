@@ -5,6 +5,8 @@ import AuthenticationDetailsScreen from '../screens/registerStack/authentication
 import PersonalDetailsScreen from '../screens/registerStack/personalDetailsScreen';
 import CustomiseYourProfileScreen from '../screens/registerStack/customiseYourProfileScreen';
 import VerificationScreen from '../screens/registerStack/verificationScreen';
+import LocationDetailsScreen from '../screens/registerStack/locationDetailsScreen';
+import InterestsScreen from '../screens/registerStack/interestsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +18,8 @@ const AuthStack = () => {
         <Stack.Screen name="PersonalDetails" component={PersonalDetailsScreen} />
         <Stack.Screen name="CustomiseYourProfile" component={CustomiseYourProfileScreen} />
         <Stack.Screen name="Verification" component={VerificationScreen} />
+        <Stack.Screen name="LocationDetails" component={LocationDetailsScreen} />
+        <Stack.Screen name="Interests" component={InterestsScreen} />
     </Stack.Navigator>;
 }
 
