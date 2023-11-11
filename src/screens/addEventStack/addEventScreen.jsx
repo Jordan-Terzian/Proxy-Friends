@@ -9,6 +9,7 @@ import Metrics from "../../constants/metrics";
 import TextInputIcon from "../../components/molecules/textInput";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import BioInputField from "../../components/molecules/textInputMultiLine";
+import DatePickerField from "../../components/molecules/datePickerField";
 
 const RoundedRectWithSvg = () => {
   const calendarSvg = `<svg width="77" height="80" viewBox="0 0 77 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,33 +81,22 @@ const AddEventScreen = ({ navigation }) => {
             containerStyle={{ justifyContent: "flex-start" }}
           />
         </View>
-        <View style={[styles.activityFormInput, { marginRight: 0 }]}>
-          <Text style={[styles.activityFormText, { flex: 1 }]}>Date:</Text>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              alignContent: "center",
-            }}
-          >
-            <TextInputIcon
-              placeholder="DD/MM/YYYY"
-              style={{ width: "77%" }}
-              containerStyle={{ justifyContent: "flex-start" }}
-            />
-            <MaterialCommunityIcons
-              name="calendar-today"
-              size={24}
-              style={{ paddingTop: 6 }}
-            />
-          </View>
+        <View style={[styles.activityFormInput]}>
+          <Text style={[styles.activityFormText]}>Start time:</Text>
+          <DatePickerField
+            placeholder="DD/MM/YYYY HH:MM"
+            style={{ width: "72%", justifyContent: "flex-start" }}
+            showIcon={true}
+            mode="datetime"
+          />
         </View>
-        <View style={styles.activityFormInput}>
-          <Text style={styles.activityFormText}>Time:</Text>
-          <TextInputIcon
-            placeholder="HH:MM-HH:MM"
-            style={{ width: "70%" }}
-            containerStyle={{ justifyContent: "flex-start" }}
+        <View style={[styles.activityFormInput]}>
+          <Text style={[styles.activityFormText]}>End time:</Text>
+          <DatePickerField
+            placeholder="DD/MM/YYYY HH:MM"
+            style={{ width: "72%", justifyContent: "flex-start" }}
+            showIcon={true}
+            mode="datetime"
           />
         </View>
         <Text style={[styles.activityFormText, { paddingBottom: 10 }]}>
@@ -129,6 +119,7 @@ export default AddEventScreen;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: "#fff",
     justifyContent: "flex-start",
   },
