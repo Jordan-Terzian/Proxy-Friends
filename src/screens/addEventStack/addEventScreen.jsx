@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Svg, { Rect, SvgXml } from "react-native-svg";
 import HeaderNavigation from "../../components/molecules/headerNavigation";
@@ -10,6 +10,7 @@ import TextInputIcon from "../../components/molecules/textInput";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import BioInputField from "../../components/molecules/textInputMultiLine";
 import DatePickerField from "../../components/molecules/datePickerField";
+import { addNewEvent } from "../../storage/eventStore";
 
 const RoundedRectWithSvg = () => {
   const calendarSvg = `<svg width="77" height="80" viewBox="0 0 77 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,13 +47,29 @@ const TopBar = ({ title, backLabel, nextLabel, handlePost }) => {
 };
 
 const AddEventScreen = ({ navigation }) => {
+  const [activity, setActivity] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
+  const [description, setDescription] = useState(null);
+
+  const handlePost = () => {
+    addNewEvent({
+      activity,
+      location,
+      startTime,
+      endTime,
+      description,
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <TopBar
         title="Make Event"
         backLabel="Cancel"
         nextLabel="Post"
-        handlePost={() => console.log("Post")}
+        handlePost={handlePost}
       />
       <View style={styles.eventFormContainer}>
         <Text style={styles.eventTitle}>Event Picture</Text>
@@ -71,6 +88,8 @@ const AddEventScreen = ({ navigation }) => {
             placeholder="Enter Activity"
             style={{ width: "70%" }}
             containerStyle={{ justifyContent: "flex-start" }}
+            value={activity}
+            onChangeText={setActivity}
           />
         </View>
         <View style={styles.activityFormInput}>
@@ -79,6 +98,8 @@ const AddEventScreen = ({ navigation }) => {
             placeholder="Enter Location"
             style={{ width: "70%" }}
             containerStyle={{ justifyContent: "flex-start" }}
+            value={location}
+            onChangeText={setLocation}
           />
         </View>
         <View style={[styles.activityFormInput]}>
@@ -88,6 +109,7 @@ const AddEventScreen = ({ navigation }) => {
             style={{ width: "72%", justifyContent: "flex-start" }}
             showIcon={true}
             mode="datetime"
+            onConfirm={setStartTime}
           />
         </View>
         <View style={[styles.activityFormInput]}>
@@ -97,6 +119,7 @@ const AddEventScreen = ({ navigation }) => {
             style={{ width: "72%", justifyContent: "flex-start" }}
             showIcon={true}
             mode="datetime"
+            onConfirm={setEndTime}
           />
         </View>
         <Text style={[styles.activityFormText, { paddingBottom: 10 }]}>
@@ -105,10 +128,8 @@ const AddEventScreen = ({ navigation }) => {
         <BioInputField
           placeholder="Enter Event Description"
           style={{ width: "100%" }}
-          containerStyle={{
-            justifyContent: "flex-start",
-            borderRadius: 20,
-          }}
+          value={description}
+          onChangeText={setDescription}
         />
       </View>
     </SafeAreaView>

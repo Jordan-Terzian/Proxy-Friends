@@ -18,7 +18,7 @@ const TextInputIcon = ({
     if (inputLimit && inputText.length > inputLimit) {
       inputText = inputText.substring(0, inputLimit);
     }
-    setText(inputText);
+    setText(inputText, textInputProps);
     if (textInputProps.onChangeText) {
       textInputProps.onChangeText(inputText);
     }

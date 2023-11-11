@@ -13,6 +13,7 @@ const DatePickerField = ({
   style,
   showIcon,
   mode,
+  onConfirm,
 }) => {
   const viewStyles = createInputPillStyle();
 
@@ -22,6 +23,9 @@ const DatePickerField = ({
   const handleConfirm = (selectedDate) => {
     hide();
     setDate(selectedDate);
+    if (onConfirm) {
+      onConfirm(selectedDate);
+    }
   };
 
   const handleShowPicker = () => {
@@ -41,7 +45,6 @@ const DatePickerField = ({
 
   const formatDateTime = (date) => {
     if (!date) return placeholder;
-    console.log(date);
     const day = date.getDate();
     const month = date.getMonth() + 1; // January is 0!
     const year = date.getFullYear();
