@@ -5,20 +5,28 @@ import { Image } from "react-native";
 
 const eventKeyPrefix = "EVENT";
 
+/**
+interface Activity {
+  id: str,
+  image: str,
+  activity: str // name of activity
+  location: str, // TBC
+  startDate: Date,
+  endDate: Date,
+  attendees: str[], // userIds
+  description: str,
+  host: str // userId
+} 
+ */
+
 const formEventId = () => {
   return String(`${eventKeyPrefix}-${uuidv4()}`);
 };
 
-export const getEvent = async (eventId, updateData) => {
+export const getEvent = async (eventId) => {
   try {
-    await AsyncStorage.getItem(eventId, (errs, result) => {
-      if (errs) {
-        console.log(errs);
-      } else {
-        console.log(result);
-        updateData(JSON.parse(result));
-      }
-    });
+    let res = await AsyncStorage.getItem(eventId);
+    return JSON.parse(await AsyncStorage.getItem(eventId));
   } catch (error) {
     // Error saving data
     // TODO: show error snack bar
@@ -26,12 +34,13 @@ export const getEvent = async (eventId, updateData) => {
   }
 };
 
-export const addNewEvent = async (activityInfo) => {
+export const addNewEvent = async (activityInfo, host) => {
   const id = formEventId();
+
   const activityObj = {
     id,
-    attendees: ["Annie"], // TODO: get caller information and add a host field.
-    host: "Annie",
+    attendees: [host], // TODO: get caller information and add a host field.
+    host,
     ...activityInfo,
   };
   if (!activityInfo.image) {
@@ -40,6 +49,19 @@ export const addNewEvent = async (activityInfo) => {
   try {
     await AsyncStorage.setItem(id, JSON.stringify(activityObj));
     return id;
+  } catch (error) {
+    // Error saving data
+    // TODO: show error snack bar
+    console.log(error);
+  }
+};
+
+export const addAttendeeToActivity = async (activityId, newAttendee) => {
+  const activityInfo = await getEvent(activityId);
+  activityInfo.attendees.push(newAttendee);
+  try {
+    await AsyncStorage.setItem(activityId, JSON.stringify(activityInfo));
+    return activityId;
   } catch (error) {
     // Error saving data
     // TODO: show error snack bar

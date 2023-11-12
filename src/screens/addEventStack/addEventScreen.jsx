@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Svg, { Rect, SvgXml } from "react-native-svg";
 import HeaderNavigation from "../../components/molecules/headerNavigation";
@@ -14,6 +14,7 @@ import { addNewEvent } from "../../storage/activityStore";
 import ModalImagePicker from "../../components/molecules/modalImagePicker";
 import UseToggle from "../../utils/useToggle";
 import ImageButton from "../../components/atoms/imageButton";
+import UserContext from "../../context/userContext";
 
 const RoundedRectWithSvg = () => {
   const calendarSvg = `<svg width="77" height="80" viewBox="0 0 77 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,16 +60,21 @@ const AddEventScreen = ({ navigation }) => {
   const { value: showImageUploader, toggleValue: setShowImageUploader } =
     UseToggle();
 
+  const { loggedInUserId } = useContext(UserContext);
+
   const handlePost = async () => {
-    const activityId = await addNewEvent({
-      activity,
-      location,
-      startTime,
-      endTime,
-      description,
-      image,
-    });
-    console.log("in add event activity id", activityId);
+    const activityId = await addNewEvent(
+      {
+        activity,
+        location,
+        startTime,
+        endTime,
+        description,
+        image,
+      },
+      loggedInUserId
+    );
+
     navigation.navigate("HomeScreen", {
       tab: "Activities",
       activityId,
