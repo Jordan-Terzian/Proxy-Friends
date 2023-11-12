@@ -10,7 +10,10 @@ import TextInputIcon from "../../components/molecules/textInput";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import BioInputField from "../../components/molecules/textInputMultiLine";
 import DatePickerField from "../../components/molecules/datePickerField";
-import { addNewEvent } from "../../storage/eventStore";
+import { addNewEvent } from "../../storage/activityStore";
+import ModalImagePicker from "../../components/molecules/modalImagePicker";
+import UseToggle from "../../utils/useToggle";
+import ImageButton from "../../components/atoms/imageButton";
 
 const RoundedRectWithSvg = () => {
   const calendarSvg = `<svg width="77" height="80" viewBox="0 0 77 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,6 +55,9 @@ const AddEventScreen = ({ navigation }) => {
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [description, setDescription] = useState(null);
+  const [image, setImage] = useState(null);
+  const { value: showImageUploader, toggleValue: setShowImageUploader } =
+    UseToggle();
 
   const handlePost = async () => {
     const activityId = await addNewEvent({
@@ -60,6 +66,7 @@ const AddEventScreen = ({ navigation }) => {
       startTime,
       endTime,
       description,
+      image,
     });
     console.log("in add event activity id", activityId);
     navigation.navigate("HomeScreen", {
@@ -78,14 +85,35 @@ const AddEventScreen = ({ navigation }) => {
       />
       <View style={styles.eventFormContainer}>
         <Text style={styles.eventTitle}>Event Picture</Text>
-        <View style={styles.imageContainer}>
-          <RoundedRectWithSvg />
-          <Image
-            resizeMode="contain"
-            style={styles.editImage}
-            source={Assets.images.pencil}
-          />
-        </View>
+        <TouchableOpacity onPress={setShowImageUploader}>
+          <View style={styles.imageContainer}>
+            {image === null && <RoundedRectWithSvg />}
+            {image !== null && (
+              <ImageButton
+                imageUri={image}
+                size={Math.min(
+                  styles.roundedRect.height * 0.8,
+                  styles.roundedRect.width * 0.8
+                )}
+                style={[styles.roundedRect]}
+                onPress={setShowImageUploader}
+              />
+            )}
+            <TouchableOpacity onPress={setShowImageUploader}>
+              <Image
+                resizeMode="contain"
+                style={styles.editImage}
+                source={Assets.images.pencil}
+              />
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+        <ModalImagePicker
+          isVisible={showImageUploader}
+          toggleVisibility={setShowImageUploader}
+          onImagePicked={(uri) => setImage(uri)}
+        />
+
         <View style={{ paddingTop: Metrics.screenWidth * 0.08 }}></View>
         <View style={styles.activityFormInput}>
           <Text style={styles.activityFormText}>Activity:</Text>

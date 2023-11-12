@@ -4,49 +4,9 @@ import ImageCard from "../../components/organisms/imageCard";
 import Assets from "../../constants/assets";
 import Details from "./details";
 import ActionsRow from "./actionsRow";
-import { getEvent } from "../../storage/eventStore";
-import { useEffect, useState } from "react";
-
-const formatDateTime = (startDate, endDate) => {
-  const formatDate = (date) => {
-    if (!date) return placeholder;
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // January is 0!
-    const year = date.getFullYear();
-    return `${day < 10 ? `0${day}` : day}/${
-      month < 10 ? `0${month}` : month
-    }/${year}`;
-  };
-
-  const formatTwoDigit = (hour) => {
-    return hour >= 10 ? hour : `0${hour}`;
-  };
-  const startDay = startDate.getDate();
-  const startMonth = startDate.getMonth() + 1; // January is 0!
-  const startYear = startDate.getFullYear();
-  const startHour = startDate.getHours();
-  const startMin = startDate.getMinutes();
-
-  const endDay = endDate.getDate();
-  const endMonth = endDate.getMonth() + 1; // January is 0!
-  const endYear = endDate.getFullYear();
-  const endHour = endDate.getHours();
-  const endMin = endDate.getMinutes();
-
-  if (startDay === endDay && startMonth === endMonth && startYear === endYear) {
-    return `${formatDate(startDate)} ${formatTwoDigit(
-      startHour
-    )}:${formatTwoDigit(startMin)} - ${formatTwoDigit(
-      endHour
-    )}:${formatTwoDigit(endMin)}`;
-  } else {
-    return `${formatDate(startDate)} ${formatTwoDigit(
-      startHour
-    )}:${formatTwoDigit(startMin)}  - ${formatDate(endDate)} ${formatTwoDigit(
-      endHour
-    )}:${formatTwoDigit(endMin)}`;
-  }
-};
+import { getAllEventUserIsNotPattendeeOf } from "../../storage/activityStore";
+import React, { useEffect, useState } from "react";
+import { formatDateRange } from "../../utils/datetime";
 
 const formatAttendees = (attendees) => {
   return `${attendees.length} ${
@@ -54,8 +14,21 @@ const formatAttendees = (attendees) => {
   }`;
 };
 
-const ActivityScreen = ({ navigation, activityId }) => {
-  if (!activityId) {
+const ActivityScreen = ({ navigation }) => {
+  // TODO: Get current logged in user
+  const user = "Levi";
+
+  const [activities, setActivities] = useState([]);
+  const [activityIdx, setActivityIdx] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setActivities(await getAllEventUserIsNotPattendeeOf(user));
+    };
+    fetchData();
+  }, []);
+
+  if (!activities || activities.length === 0) {
     // TODO: Decide what this case looks like
     return (
       <View style={styles.container}>
@@ -64,63 +37,58 @@ const ActivityScreen = ({ navigation, activityId }) => {
     );
   }
 
-  const [activityData, setActivityData] = useState(null);
+  const activityData = activities[activityIdx];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      getEvent(activityId, setActivityData);
-    };
-    fetchData();
-  }, []);
-
-  const activityDetailData =
-    activityData === null
-      ? []
-      : [
-          {
-            id: "activityIcon",
-            icon: "local-activity",
-            detail: activityData.activity,
-            type: "iconItem",
-          },
-          {
-            id: "activityLocation",
-            icon: "location-pin",
-            detail: activityData.location,
-            type: "iconItem",
-          },
-          {
-            id: "activityTime",
-            icon: "event",
-            detail: formatDateTime(
-              new Date(activityData.startTime),
-              new Date(activityData.endTime)
-            ),
-            type: "iconItem",
-          },
-          {
-            id: "activityAttendees",
-            icon: "groups",
-            detail: formatAttendees(activityData.attendees),
-            type: "iconItem",
-          },
-          {
-            id: "activityHost",
-            icon: "assignment-ind",
-            detail: activityData.host,
-            type: "iconItem",
-          },
-          {
-            id: "activityNotes",
-            icon: "notes",
-            detail: activityData.description,
-            type: "iconItem",
-          },
-        ];
+  const activityDetailData = [
+    {
+      id: "activityImage",
+      type: "imageItem",
+      detail: activityData.image,
+    },
+    {
+      id: "activityIcon",
+      icon: "local-activity",
+      detail: activityData.activity,
+      type: "iconItem",
+    },
+    {
+      id: "activityLocation",
+      icon: "location-pin",
+      detail: activityData.location,
+      type: "iconItem",
+    },
+    {
+      id: "activityTime",
+      icon: "event",
+      detail: formatDateRange(
+        new Date(activityData.startTime),
+        new Date(activityData.endTime)
+      ),
+      type: "iconItem",
+    },
+    {
+      id: "activityAttendees",
+      icon: "groups",
+      detail: formatAttendees(activityData.attendees),
+      type: "iconItem",
+    },
+    {
+      id: "activityHost",
+      icon: "assignment-ind",
+      detail: activityData.host,
+      type: "iconItem",
+    },
+    {
+      id: "activityNotes",
+      icon: "notes",
+      detail: activityData.description,
+      type: "iconItem",
+    },
+  ];
   return (
     <>
       <View style={styles.container}>
-        <ImageCard imgSrc={Assets.activities.tennis}>
+        <ImageCard imgSrc={activityDetailData[0].detail}>
           <Details data={activityDetailData} />
         </ImageCard>
       </View>

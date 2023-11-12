@@ -3,9 +3,10 @@ import { StyleSheet, View, Image } from "react-native";
 import Metrics from "../../constants/metrics";
 
 const ImageCard = ({ imgSrc, children }) => {
+  console.log("img src is", imgSrc);
   return (
     <View style={styles.container}>
-      <Image source={imgSrc} style={styles.imageContainer} />
+      <Image source={{ uri: imgSrc }} style={styles.imageContainer} />
       <View style={styles.infoContainer}>{children}</View>
     </View>
   );

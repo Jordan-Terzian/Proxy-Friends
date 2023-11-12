@@ -7,6 +7,7 @@ import TimeDateModal from "../atoms/modalDateTimePicker";
 import UseToggle from "../../utils/useToggle";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import createInputPillStyle from "../../screens/styles/inputPillStyle";
+import { formatDate, formatDateTime } from "../../utils/datetime";
 
 const DatePickerField = ({
   placeholder = "dd/mm/yyyy",
@@ -30,28 +31,6 @@ const DatePickerField = ({
 
   const handleShowPicker = () => {
     unhide();
-  };
-
-  // Function to format date in DD/MM/YYYY format
-  const formatDate = (date) => {
-    if (!date) return placeholder;
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // January is 0!
-    const year = date.getFullYear();
-    return `${day < 10 ? `0${day}` : day}/${
-      month < 10 ? `0${month}` : month
-    }/${year}`;
-  };
-
-  const formatDateTime = (date) => {
-    if (!date) return placeholder;
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // January is 0!
-    const year = date.getFullYear();
-
-    return `${day < 10 ? `0${day}` : day}/${
-      month < 10 ? `0${month}` : month
-    }/${year} ${date.getHours()}:${date.getMinutes()}`;
   };
 
   return (
