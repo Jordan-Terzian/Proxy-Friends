@@ -10,7 +10,6 @@ const formEventId = () => {
 
 export const getEvent = async (eventId, updateData) => {
   try {
-    console.log("Get event with ID", eventId);
     await AsyncStorage.getItem(eventId, (errs, result) => {
       if (errs) {
         console.log(errs);
