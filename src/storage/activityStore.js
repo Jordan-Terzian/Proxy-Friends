@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import defaultProfile from "../assets/images/defaultProfile.png";
 import { v4 as uuidv4 } from "uuid";
 import { Image } from "react-native";
 
@@ -33,7 +34,7 @@ export const addNewEvent = async (activityInfo) => {
     host: "Annie",
     ...activityInfo,
   };
-  if (activityInfo.image === null) {
+  if (!activityInfo.image) {
     activityObj.image = Image.resolveAssetSource(defaultProfile).uri;
   }
   try {

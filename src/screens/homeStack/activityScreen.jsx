@@ -20,7 +20,6 @@ const ActivityScreen = ({ navigation }) => {
   const user = "Levi";
 
   const [activities, setActivities] = useState([]);
-  const [activityIdx, setActivityIdx] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -113,7 +112,7 @@ const ActivityScreen = ({ navigation }) => {
           renderCard={renderCard}
           cardIndex={0}
           backgroundColor="#fff"
-          disableTopSwipe={true}
+          verticalSwipe={false}
           onSwiped={(cardIndex) => {
             cardIndex++;
           }}

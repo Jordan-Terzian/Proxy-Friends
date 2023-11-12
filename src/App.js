@@ -1,9 +1,9 @@
-import Main from './navigation/main'
+import Main from "./navigation/main";
+import { setupUserAndActivities } from "./testing/setupData";
 
 const App = () => {
-  return (
-    <Main />
-  )
-}
+  setupUserAndActivities();
+  return <Main />;
+};
 
-export default App
+export default App;
