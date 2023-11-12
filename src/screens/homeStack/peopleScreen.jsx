@@ -5,8 +5,12 @@ import Assets from "../../constants/assets";
 import Details from "./details";
 import ShapedButton from "../../components/atoms/shapedButton";
 import ActionsRow from "./actionsRow";
+import { useContext } from "react";
+import UserContext from "../../context/userContext";
 
 const PeopleScreen = ({ navigation }) => {
+  const { loggedInUserId } = useContext(UserContext);
+  console.log(loggedInUserId);
   const personDetails = [
     { id: "profileIcon", icon: "person", detail: "Mr Beast", type: "iconItem" },
     { id: "profileAge", icon: "cake", detail: "22", type: "iconItem" },

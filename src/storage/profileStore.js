@@ -2,9 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { v4 as uuidv4 } from "uuid";
 import { Image } from "react-native";
 
-const profileKeyPrefix = "PROFILE";
-
-```
+/**
 interface UserProfile {
     userId: str,
     matchedUsers: str[],
@@ -15,7 +13,9 @@ interface UserProfile {
     interests: str[],
     profileImage: str,
 }
-```;
+**/
+
+export const profileKeyPrefix = "PROFILE";
 
 export const getUserProfile = async (userId) => {
   try {
