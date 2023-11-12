@@ -10,7 +10,11 @@ import ShapedButton from "../../components/atoms/shapedButton";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useState } from "react";
 import UserContext from "../../context/userContext";
-import { profileKeyPrefix } from "../../storage/profileStore";
+import {
+  addNewUser,
+  profileKeyPrefix,
+  setUpLogInUser,
+} from "../../storage/profileStore";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -18,8 +22,10 @@ const LoginScreen = () => {
   const [userId, setUserId] = useState("");
   const { updateLoggedInuser } = useContext(UserContext);
 
-  const onLoginSuccess = () => {
-    updateLoggedInuser(`${profileKeyPrefix}-${userId}`);
+  const onLoginSuccess = async () => {
+    // TODO: Remove this adding of new user as logged in user should already have a profile stored locally
+    const loggedInUserId = await setUpLogInUser(userId);
+    updateLoggedInuser(loggedInUserId);
     navigation.navigate("AppStack");
   };
 

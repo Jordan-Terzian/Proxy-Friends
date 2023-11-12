@@ -18,6 +18,14 @@ interface UserProfile {
 
 export const profileKeyPrefix = "PROFILE";
 
+// For testing, remove this after
+export const setUpLogInUser = async (userId) => {
+  const id = String(`${profileKeyPrefix}-${userId}`);
+  const matchedUsers = [];
+  await AsyncStorage.setItem(id, JSON.stringify({ id, matchedUsers }));
+  return id;
+};
+
 export const addNewUser = async (userInfo) => {
   const id = String(`${profileKeyPrefix}-${uuidv4()}`);
   const userObj = {
@@ -37,7 +45,7 @@ export const addNewUser = async (userInfo) => {
   } catch (error) {
     // Error saving data
     // TODO: show error snack bar
-    console.log(error);
+    console.log("error adding new user", error);
   }
 };
 
@@ -47,7 +55,7 @@ export const getUserProfile = async (userId) => {
   } catch (error) {
     // Error saving data
     // TODO: show error snack bar
-    console.log(error);
+    console.log("error getting user profile", error);
   }
 };
 
@@ -66,6 +74,24 @@ export const getUnmatchedUsers = async (loggedInUserId) => {
   } catch (error) {
     // Error saving data
     // TODO: show error snack bar
-    console.log(error);
+    console.log("Error getting unmatched users", error);
+  }
+};
+
+export const addMatchUser = async (loggedInUserId, newMatchUserId) => {
+  const loggedInUserProfile = await getUserProfile(loggedInUserId);
+  console.log(loggedInUserId, newMatchUserId);
+  console.log(loggedInUserProfile);
+  loggedInUserProfile.matchedUsers.push(newMatchUserId);
+  try {
+    await AsyncStorage.setItem(
+      loggedInUserId,
+      JSON.stringify(loggedInUserProfile)
+    );
+    return loggedInUserId;
+  } catch (error) {
+    // Error saving data
+    // TODO: show error snack bar
+    console.log("Error updating user match", error);
   }
 };

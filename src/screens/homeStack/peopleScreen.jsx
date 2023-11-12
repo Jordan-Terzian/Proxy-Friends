@@ -5,14 +5,21 @@ import Swiper from "react-native-deck-swiper";
 import Details from "./details";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 import ActionsRow from "./actionsRow";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import UserContext from "../../context/userContext";
-import { getUnmatchedUsers } from "../../storage/profileStore";
+import {
+  addMatchUser,
+  addMatchUsers,
+  getUnmatchedUsers,
+} from "../../storage/profileStore";
 
 const PeopleScreen = ({ navigation }) => {
   const { loggedInUserId } = useContext(UserContext);
 
   const [profiles, setProfiles] = useState([]);
+  const [cardIndex, setCardIndex] = useState(0);
+
+  const swiperRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,6 +92,14 @@ const PeopleScreen = ({ navigation }) => {
 
   const cards = profiles.map((profile) => createPersonDetails(profile));
 
+  if (cardIndex === cards.length) {
+    return (
+      <View>
+        <Text>No users left</Text>
+      </View>
+    );
+  }
+
   return (
     <>
       <View style={styles.container}>
@@ -102,17 +117,28 @@ const PeopleScreen = ({ navigation }) => {
           cardIndex={0}
           backgroundColor="#fff"
           verticalSwipe={false}
-          onSwiped={(cardIndex) => {
-            cardIndex++;
+          onSwiped={(cardIndex) => setCardIndex(cardIndex + 1)}
+          onSwipedRight={async (cardIndex) => {
+            if (cardIndex < cards.length) {
+              await addMatchUser(loggedInUserId, profiles[cardIndex].id);
+            }
           }}
+          ref={(ref) => (this.swiperRef = ref)}
         />
       </View>
       <View style={styles.actionsRowContainer}>
         <ActionsRow
           rejectLabel="Discard"
-          onRejectPress={() => console.log("test1")}
+          onRejectPress={() => {
+            this.swiperRef.swipeLeft();
+          }}
           acceptLabel="Seek Match"
-          onAcceptPress={() => console.log("test2")}
+          onAcceptPress={async () => {
+            if (cardIndex < cards.length) {
+              await addMatchUser(loggedInUserId, profiles[cardIndex].id);
+            }
+            this.swiperRef.swipeRight();
+          }}
         />
       </View>
     </>

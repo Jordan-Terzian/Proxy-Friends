@@ -12,8 +12,6 @@ const HomeScreen = ({ route, navigation }) => {
 
   const [selectedTab, setSelectedTab] = useState(receivedDataTab);
 
-  console.log(receivedDataTab, selectedTab);
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topTab}>
