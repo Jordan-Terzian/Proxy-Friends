@@ -1,37 +1,32 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { Text, View, Image } from "react-native";
 import ImageCard from "../../components/organisms/imageCard";
-import Swiper from "react-native-deck-swiper";
 import Details from "./details";
 import defaultProfile from "../../assets/images/defaultProfile.png";
-import ActionsRow from "./actionsRow";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useQuery } from "react-query";
+import { useContext, useState } from "react";
 import UserContext from "../../context/userContext";
-import {
-  addMatchUser,
-  addMatchUsers,
-  getUnmatchedUsers,
-} from "../../storage/profileStore";
+import { addMatchUser, getUnmatchedUsers } from "../../storage/profileStore";
+import SwiperDeck from "./swiperDeck";
 
 const PeopleScreen = ({ navigation }) => {
   const { loggedInUserId } = useContext(UserContext);
 
   const [profiles, setProfiles] = useState([]);
-  const [cardIndex, setCardIndex] = useState(0);
 
-  const swiperRef = useRef(null);
+  const fetchData = async () => {
+    setProfiles(await getUnmatchedUsers(loggedInUserId));
+  };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setProfiles(await getUnmatchedUsers(loggedInUserId));
-    };
-    fetchData();
-  }, []);
+  const { isLoading, error } = useQuery("getUnmatchedProfiles", fetchData);
+
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
 
   if (profiles.length === 0) {
     // TODO: Decide what this case looks like
     return (
-      <View style={styles.container}>
+      <View>
         <Text>There is no people</Text>
       </View>
     );
@@ -92,69 +87,15 @@ const PeopleScreen = ({ navigation }) => {
 
   const cards = profiles.map((profile) => createPersonDetails(profile));
 
-  if (cardIndex === cards.length) {
-    return (
-      <View>
-        <Text>No users left</Text>
-      </View>
-    );
-  }
-
   return (
-    <>
-      <View style={styles.container}>
-        <Swiper
-          containerStyle={{
-            backgroundColor: "transparent",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            zIndex: 0,
-            top: -60,
-          }}
-          // useViewOverflow={false}
-          cards={cards}
-          renderCard={renderCard}
-          cardIndex={0}
-          backgroundColor="#fff"
-          verticalSwipe={false}
-          onSwiped={(cardIndex) => setCardIndex(cardIndex + 1)}
-          onSwipedRight={async (cardIndex) => {
-            if (cardIndex < cards.length) {
-              await addMatchUser(loggedInUserId, profiles[cardIndex].id);
-            }
-          }}
-          ref={(ref) => (this.swiperRef = ref)}
-        />
-      </View>
-      <View style={styles.actionsRowContainer}>
-        <ActionsRow
-          rejectLabel="Discard"
-          onRejectPress={() => {
-            this.swiperRef.swipeLeft();
-          }}
-          acceptLabel="Seek Match"
-          onAcceptPress={async () => {
-            if (cardIndex < cards.length) {
-              await addMatchUser(loggedInUserId, profiles[cardIndex].id);
-            }
-            this.swiperRef.swipeRight();
-          }}
-        />
-      </View>
-    </>
+    <SwiperDeck
+      cards={cards}
+      renderCard={renderCard}
+      onAcceptAction={async (cardIndex) => {
+        await addMatchUser(loggedInUserId, profiles[cardIndex].id);
+      }}
+    />
   );
 };
 
 export default PeopleScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  actionsRowContainer: {
-    justifyContent: "flex-start",
-  },
-});

@@ -39,6 +39,7 @@
     "react-native-tooltip": "^5.2.0",
     "react-native-vector-icons": "^10.0.1",
     "react-native-web": "~0.19.6",
+    "react-query": "^3.39.3",
     "rn-tooltip": "^3.0.3"
   },
   "private": true,

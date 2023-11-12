@@ -1,13 +1,15 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import ImageCard from "../../components/organisms/imageCard";
-import Swiper from "react-native-deck-swiper";
 import Details from "./details";
-import ActionsRow from "./actionsRow";
-import { getAllEventUserIsNotPattendeeOf } from "../../storage/activityStore";
-import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import {
+  addAttendeeToActivity,
+  getAllEventUserIsNotPattendeeOf,
+} from "../../storage/activityStore";
+import React, { useContext, useState } from "react";
 import { formatDateRange } from "../../utils/datetime";
-import Metrics from "../../constants/metrics";
+import SwiperDeck from "./swiperDeck";
+import UserContext from "../../context/userContext";
 
 const formatAttendees = (attendees) => {
   return `${attendees.length} ${
@@ -16,22 +18,24 @@ const formatAttendees = (attendees) => {
 };
 
 const ActivityScreen = ({ navigation }) => {
-  // TODO: Get current logged in user
-  const user = "Levi";
+  const { loggedInUserId } = useContext(UserContext);
 
   const [activities, setActivities] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setActivities(await getAllEventUserIsNotPattendeeOf(user));
-    };
-    fetchData();
-  }, []);
+  const fetchData = async () => {
+    const data = await getAllEventUserIsNotPattendeeOf(loggedInUserId);
+    setActivities(data);
+  };
+  const { isLoading, error } = useQuery("getUnmatchedActivities", fetchData);
+
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
 
   if (!activities || activities.length === 0) {
     // TODO: Decide what this case looks like
     return (
-      <View style={styles.container}>
+      <View>
         <Text>There is no activity</Text>
       </View>
     );
@@ -97,49 +101,14 @@ const ActivityScreen = ({ navigation }) => {
   const cards = activities.map((activity) => createActivityData(activity));
 
   return (
-    <>
-      <View style={[styles.container]}>
-        <Swiper
-          containerStyle={{
-            backgroundColor: "transparent",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            zIndex: 0,
-            top: -60,
-          }}
-          useViewOverflow={false}
-          cards={cards}
-          renderCard={renderCard}
-          cardIndex={0}
-          backgroundColor="#fff"
-          verticalSwipe={false}
-          onSwiped={(cardIndex) => {
-            cardIndex++;
-          }}
-        />
-      </View>
-      <View style={styles.actionsRowContainer}>
-        <ActionsRow
-          rejectLabel="Discard"
-          onRejectPress={() => console.log("test1")}
-          acceptLabel="Join"
-          onAcceptPress={() => console.log("test2")}
-        />
-      </View>
-    </>
+    <SwiperDeck
+      cards={cards}
+      renderCard={renderCard}
+      onAcceptAction={async (cardIndex) => {
+        await addAttendeeToActivity(activities[cardIndex].id, loggedInUserId);
+      }}
+    />
   );
 };
 
 export default ActivityScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  actionsRowContainer: {
-    justifyContent: "flex-start",
-  },
-});
