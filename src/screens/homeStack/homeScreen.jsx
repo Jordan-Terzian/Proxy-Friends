@@ -51,5 +51,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     paddingTop: 5,
     paddingBottom: 20,
+    zIndex: 2,
   },
 });

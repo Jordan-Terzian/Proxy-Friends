@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between", // Pushes the buttons to opposite sides
     paddingHorizontal: 5, // Add some horizontal spacing
     alignItems: "center", // Aligns buttons vertically in the center
+    zIndex: 1,
   },
 });
 
