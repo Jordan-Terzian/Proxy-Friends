@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, ActivityIndicator } from "react-native";
 import ImageCard from "../../components/organisms/imageCard";
 import Details from "./details";
 import { useQuery } from "react-query";
@@ -29,7 +29,13 @@ const ActivityScreen = ({ navigation }) => {
   const { isLoading, error } = useQuery("getUnmatchedActivities", fetchData);
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View
+        style={{ flex: 1, justifyContent: "center", alignContent: "center" }}
+      >
+        <ActivityIndicator color="#DDE2F5" />
+      </View>
+    );
   }
 
   if (!activities || activities.length === 0) {
