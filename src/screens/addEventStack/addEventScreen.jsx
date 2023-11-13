@@ -1,13 +1,11 @@
 import React, { useContext, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import Svg, { Rect, SvgXml } from "react-native-svg";
-import HeaderNavigation from "../../components/molecules/headerNavigation";
+import { SvgXml } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import Assets from "../../constants/assets";
 import Metrics from "../../constants/metrics";
 import TextInputIcon from "../../components/molecules/textInput";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import BioInputField from "../../components/molecules/textInputMultiLine";
 import DatePickerField from "../../components/molecules/datePickerField";
 import { addNewEvent } from "../../storage/activityStore";
@@ -75,6 +73,7 @@ const AddEventScreen = ({ navigation }) => {
       loggedInUserId
     );
 
+    // TODO: This should navigate to message screen of the the relevant activity instead.
     navigation.navigate("HomeScreen", {
       tab: "Activities",
       activityId,
