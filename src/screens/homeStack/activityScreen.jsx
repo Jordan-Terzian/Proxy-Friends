@@ -10,6 +10,7 @@ import React, { useContext, useState } from "react";
 import { formatDateRange } from "../../utils/datetime";
 import SwiperDeck from "./swiperDeck";
 import UserContext from "../../context/userContext";
+import LoadingSpinner from "../../components/atoms/loadingSpinner";
 
 const formatAttendees = (attendees) => {
   return `${attendees.length} ${
@@ -29,13 +30,7 @@ const ActivityScreen = ({ navigation }) => {
   const { isLoading, error } = useQuery("getUnmatchedActivities", fetchData);
 
   if (isLoading) {
-    return (
-      <View
-        style={{ flex: 1, justifyContent: "center", alignContent: "center" }}
-      >
-        <ActivityIndicator color="#DDE2F5" />
-      </View>
-    );
+    return <LoadingSpinner />;
   }
 
   if (!activities || activities.length === 0) {

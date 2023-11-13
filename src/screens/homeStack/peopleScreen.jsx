@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import UserContext from "../../context/userContext";
 import { addMatchUser, getUnmatchedUsers } from "../../storage/profileStore";
 import SwiperDeck from "./swiperDeck";
+import LoadingSpinner from "../../components/atoms/loadingSpinner";
 
 const PeopleScreen = ({ navigation }) => {
   const { loggedInUserId } = useContext(UserContext);
@@ -20,13 +21,7 @@ const PeopleScreen = ({ navigation }) => {
   const { isLoading, error } = useQuery("getUnmatchedProfiles", fetchData);
 
   if (isLoading) {
-    return (
-      <View
-        style={{ flex: 1, justifyContent: "center", alignContent: "center" }}
-      >
-        <ActivityIndicator color="#DDE2F5" />
-      </View>
-    );
+    return <LoadingSpinner />;
   }
 
   if (profiles.length === 0) {
