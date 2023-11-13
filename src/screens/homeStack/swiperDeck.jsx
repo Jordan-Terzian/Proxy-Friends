@@ -1,13 +1,8 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image } from "react-native";
-import ImageCard from "../../components/organisms/imageCard";
 import Swiper from "react-native-deck-swiper";
-import Details from "./details";
-import defaultProfile from "../../assets/images/defaultProfile.png";
 import ActionsRow from "./actionsRow";
-import { useContext, useEffect, useRef, useState } from "react";
-import UserContext from "../../context/userContext";
-import { addMatchUser, getUnmatchedUsers } from "../../storage/profileStore";
+import { useRef, useState } from "react";
+import Metrics from "../../constants/metrics";
 
 const SwiperDeck = ({ cards, renderCard, onAcceptAction }) => {
   const swiperRef = useRef(null);
@@ -15,8 +10,16 @@ const SwiperDeck = ({ cards, renderCard, onAcceptAction }) => {
 
   if (cardIndex === cards.length) {
     return (
-      <View>
-        <Text>No users left</Text>
+      <View style={styles.noCardsLeftContainer}>
+        <Text
+          style={{
+            textAlign: "center",
+            fontWeight: "bold",
+            textAlignVertical: "center",
+          }}
+        >
+          No more cards left to swipe {"\uD83D\uDE14"}
+        </Text>
       </View>
     );
   }
@@ -76,5 +79,20 @@ const styles = StyleSheet.create({
   },
   actionsRowContainer: {
     justifyContent: "flex-start",
+  },
+  noCardsLeftContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    height:
+      Metrics.screenHeight > 900
+        ? Metrics.screenHeight * 0.74
+        : Metrics.screenHeight > 800
+        ? Metrics.screenHeight * 0.72
+        : Metrics.screenHeight > 600
+        ? Metrics.screenHeight * 0.72
+        : Metrics.screenHeight * 0.69,
+    width: Metrics.screenWidth * 0.9,
+    borderRadius: 10,
+    left: (Metrics.screenWidth * 0.9) / 19,
   },
 });

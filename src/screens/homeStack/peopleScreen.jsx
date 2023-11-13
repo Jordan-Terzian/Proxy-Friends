@@ -1,4 +1,4 @@
-import { Text, View, Image, ActivityIndicator } from "react-native";
+import { Text, View, Image } from "react-native";
 import ImageCard from "../../components/organisms/imageCard";
 import Details from "./details";
 import defaultProfile from "../../assets/images/defaultProfile.png";
@@ -24,7 +24,6 @@ const PeopleScreen = ({ navigation }) => {
     return <LoadingSpinner />;
   }
 
-  console.log(isLoading, error);
   if (error) {
     throw error;
   }

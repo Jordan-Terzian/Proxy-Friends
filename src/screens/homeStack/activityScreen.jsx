@@ -33,6 +33,10 @@ const ActivityScreen = ({ navigation }) => {
     return <LoadingSpinner />;
   }
 
+  if (error) {
+    throw error;
+  }
+
   if (!activities || activities.length === 0) {
     // TODO: Decide what this case looks like
     return (
