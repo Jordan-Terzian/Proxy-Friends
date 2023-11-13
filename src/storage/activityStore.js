@@ -25,12 +25,10 @@ const formEventId = () => {
 
 export const getEvent = async (eventId) => {
   try {
-    let res = await AsyncStorage.getItem(eventId);
     return JSON.parse(await AsyncStorage.getItem(eventId));
   } catch (error) {
-    // Error saving data
-    // TODO: show error snack bar
-    console.log(error);
+    console.log("ERROR getEvent:", error);
+    throw error;
   }
 };
 
@@ -50,9 +48,8 @@ export const addNewEvent = async (activityInfo, host) => {
     await AsyncStorage.setItem(id, JSON.stringify(activityObj));
     return id;
   } catch (error) {
-    // Error saving data
-    // TODO: show error snack bar
-    console.log(error);
+    console.log("ERROR addNewEvent:", error);
+    throw error;
   }
 };
 
@@ -63,9 +60,8 @@ export const addAttendeeToActivity = async (activityId, newAttendee) => {
     await AsyncStorage.setItem(activityId, JSON.stringify(activityInfo));
     return activityId;
   } catch (error) {
-    // Error saving data
-    // TODO: show error snack bar
-    console.log(error);
+    console.log("ERROR addAttendeeToActivity:", error);
+    throw error;
   }
 };
 
@@ -81,6 +77,7 @@ export const getAllEventUserIsNotPattendeeOf = async (userName) => {
       .map((activity) => JSON.parse(activity))
       .filter((activity) => !activity.attendees.includes(userName));
   } catch (err) {
-    console.log(err);
+    console.log("ERROR getAllEventUserIsNotPattendeeOf:", error);
+    throw error;
   }
 };

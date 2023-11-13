@@ -22,7 +22,12 @@ export const profileKeyPrefix = "PROFILE";
 export const setUpLogInUser = async (userId) => {
   const id = String(`${profileKeyPrefix}-${userId}`);
   const matchedUsers = [];
-  await AsyncStorage.setItem(id, JSON.stringify({ id, matchedUsers }));
+  try {
+    await AsyncStorage.setItem(id, JSON.stringify({ id, matchedUsers }));
+  } catch (error) {
+    console.log("ERROR setUpLogInUser:", error);
+    throw error;
+  }
   return id;
 };
 
@@ -43,9 +48,8 @@ export const addNewUser = async (userInfo) => {
     await AsyncStorage.setItem(id, JSON.stringify(userObj));
     return id;
   } catch (error) {
-    // Error saving data
-    // TODO: show error snack bar
-    console.log("error adding new user", error);
+    console.log("ERROR addNewUser:", error);
+    throw error;
   }
 };
 
@@ -53,9 +57,8 @@ export const getUserProfile = async (userId) => {
   try {
     return JSON.parse(await AsyncStorage.getItem(userId));
   } catch (error) {
-    // Error saving data
-    // TODO: show error snack bar
-    console.log("error getting user profile", error);
+    console.log("ERROR getUserProfile:", error);
+    throw error;
   }
 };
 
@@ -72,9 +75,8 @@ export const getUnmatchedUsers = async (loggedInUserId) => {
       .map((profile) => JSON.parse(profile))
       .filter((profile) => !profile.matchedUsers.includes(loggedInUserId));
   } catch (error) {
-    // Error saving data
-    // TODO: show error snack bar
-    console.log("Error getting unmatched users", error);
+    console.log("ERROR getUnmatchedUsers:", error);
+    throw error;
   }
 };
 
@@ -90,8 +92,7 @@ export const addMatchUser = async (loggedInUserId, newMatchUserId) => {
     );
     return loggedInUserId;
   } catch (error) {
-    // Error saving data
-    // TODO: show error snack bar
-    console.log("Error updating user match", error);
+    console.log("ERROR addMatchUser:", error);
+    throw error;
   }
 };

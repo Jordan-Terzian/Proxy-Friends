@@ -24,6 +24,11 @@ const PeopleScreen = ({ navigation }) => {
     return <LoadingSpinner />;
   }
 
+  console.log(isLoading, error);
+  if (error) {
+    throw error;
+  }
+
   if (profiles.length === 0) {
     // TODO: Decide what this case looks like
     return (
