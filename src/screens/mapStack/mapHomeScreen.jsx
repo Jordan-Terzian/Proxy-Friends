@@ -1,8 +1,11 @@
 import {StatusBar} from 'expo-status-bar';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {useEffect, useState} from "react";
+
+import flag from '../../assets/flag.png'
+import person from '../../assets/profilecircle.png'
 
 const originalLocations = [
     {
@@ -129,8 +132,10 @@ const MapHomeScreen = () => {
             >
                 {
                     locations.map((l, k)=>{
-                        return <Marker key={k} coordinate={{latitude: l.lat, longitude: l.long}} pinColor={l.color} title={l.title}
-                                       description={l.description}/>
+                        return <Marker key={k} coordinate={{latitude: l.lat, longitude: l.long}} title={l.title}
+                                       description={l.description}>
+                            <Image source={l.color === "black" ? flag : person} style={{width: 30, height: 30}}/>
+                        </Marker>
                     })
                 }
             </MapView>
