@@ -20,7 +20,7 @@ const PastEvent = ({ event }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#D9D9D9', 
+    backgroundColor: '#DDE2F5', 
     borderRadius: 8,
     padding: 10,
     width: '30%', // Each card takes up 30% of the container width

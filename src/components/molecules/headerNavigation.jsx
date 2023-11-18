@@ -1,6 +1,6 @@
 // HeaderNavigation.js
 import React from 'react';
-import { View, StyleSheet, SafeAreaView, Text } from 'react-native';
+import { View, StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import ProgressBar from '../atoms/progressBar';
 import IconButton from '../atoms/iconButton';
 import BackNextButton from '../atoms/backNextButton';
@@ -17,7 +17,8 @@ const HeaderNavigation = ({
     validate,
     currentStep,
     totalSteps,
-    title
+    title,
+    saveVisible = false,
     // ... any other props you need
 }) => {
     const showProgressBar = typeof currentStep === 'number' && typeof totalSteps === 'number';
@@ -31,13 +32,13 @@ const HeaderNavigation = ({
                             direction="back"
                             label={backLabel}
                             labelVisible={true}
-                            // ... any other props you need
+                        // ... any other props you need
                         />
                     )}
                 </View>
-                
-               {/* Progress bar, only visible if currentStep and totalSteps are provided */}
-               {showProgressBar && (
+
+                {/* Progress bar, only visible if currentStep and totalSteps are provided */}
+                {showProgressBar && (
                     <View style={styles.progressBarContainer}>
                         <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
                     </View>
@@ -60,7 +61,7 @@ const HeaderNavigation = ({
                             labelVisible={true}
                             nextScreen={nextScreen}
                             validate={validate}
-                            // ... any other props you need
+                        // ... any other props you need
                         />
                     )}
                     {newIconButtonVisible && (
@@ -68,8 +69,14 @@ const HeaderNavigation = ({
                             icon={iconName}
                             onPress={onPress}
                             size={24}
-                            // ... any other props you need
+                        // ... any other props you need
                         />
+                    )}
+                    {saveVisible && (
+                        <TouchableOpacity onPress={onPress}>
+                            <Text style={styles.saveText}>Save</Text>
+                        </TouchableOpacity>
+
                     )}
                 </View>
             </View>
@@ -98,6 +105,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 50, // Increase this value to shorten the progress bar
     },
     title: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    saveText: {
         fontSize: 16,
         fontWeight: 'bold',
     }

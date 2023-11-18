@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   interestLabel: {
-    backgroundColor: '#E1E1E1', 
+    backgroundColor: '#DDE2F5', 
     borderRadius: 20,
     paddingVertical: 5,
 

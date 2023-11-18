@@ -24,7 +24,7 @@ const SettingsHomeScreen = () => {
                     <SettingsItem
                         iconName="security"
                         text="Security & Privacy"
-                        nextScreen=""
+                        nextScreen="SecurityAndPrivacy"
                     />
                     <SettingsItem
                         iconName="wheelchair-accessibility"
@@ -44,12 +44,12 @@ const SettingsHomeScreen = () => {
                     <SettingsItem
                         iconName="logout"
                         text="Logout"
-                        nextScreen=""
+                        nextScreen="Onboarding"
                     />
                     <SettingsItem
                         iconName="delete"
                         text="Delete Account"
-                        nextScreen=""
+                        nextScreen="onboarding"
                     />
 
 

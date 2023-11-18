@@ -11,6 +11,10 @@ const SettingsStackStyles = () =>
         container: {
             paddingHorizontal: 0,
         },
+        pageContainer: {
+            marginHorizontal: '6%',
+            rowGap: Metrics.screenWidth * 0.03
+        }, 
         section: {
             rowGap: Metrics.screenWidth * 0.01
         },
