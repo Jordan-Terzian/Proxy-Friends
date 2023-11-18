@@ -34,7 +34,7 @@ const SettingsHomeScreen = () => {
                     <SettingsItem
                         iconName="bug"
                         text="Report a problem"
-                        nextScreen=""
+                        nextScreen="ReportAProblem"
                     />
                     <SettingsItem
                         iconName="account-box-multiple"
