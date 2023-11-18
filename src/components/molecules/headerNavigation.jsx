@@ -9,8 +9,9 @@ const HeaderNavigation = ({
     backLabel = 'Back',
     headerBackVisible = true,
     headerNextVisible = true,
-    addButtonVisible = false,
-    onAddPress,
+    newIconButtonVisible = false,
+    onPress,
+    iconName,
     nextLabel = 'Next',
     nextScreen,
     validate,
@@ -18,6 +19,7 @@ const HeaderNavigation = ({
     totalSteps,
     // ... any other props you need
 }) => {
+    const showProgressBar = typeof currentStep === 'number' && typeof totalSteps === 'number';
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.headerContainer}>
@@ -32,11 +34,13 @@ const HeaderNavigation = ({
                         />
                     )}
                 </View>
-
-                {/* Progress bar */}
-                <View style={styles.progressBarContainer}>
-                    <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
-                </View>
+                
+               {/* Progress bar, only visible if currentStep and totalSteps are provided */}
+               {showProgressBar && (
+                    <View style={styles.progressBarContainer}>
+                        <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
+                    </View>
+                )}
 
                 {/* Next or Add button */}
                 <View style={styles.sideContainer}>
@@ -50,10 +54,10 @@ const HeaderNavigation = ({
                             // ... any other props you need
                         />
                     )}
-                    {addButtonVisible && (
+                    {newIconButtonVisible && (
                         <IconButton
-                            icon="plus"
-                            onPress={onAddPress}
+                            icon={iconName}
+                            onPress={onPress}
                             size={24}
                             // ... any other props you need
                         />

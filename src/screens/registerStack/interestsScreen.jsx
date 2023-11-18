@@ -50,10 +50,11 @@ const InterestsScreen = () => {
             <HeaderNavigation
                 title=""
                 headerNextVisible={false}
-                addButtonVisible={true}
-                onAddPress={toggleOverlay} 
+                newIconButtonVisible={true}
+                onPress={toggleOverlay} 
                 currentStep={6} 
                 totalSteps={6} 
+                iconName={'plus'}
             />
             <ScrollView nestedScrollEnabled={true}>
                 <View style={RegisterStyles.underHeaderContainer}>

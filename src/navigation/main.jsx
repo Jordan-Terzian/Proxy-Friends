@@ -12,20 +12,20 @@ import ErrorFallbacComponent from "../components/organisms/errorFallback";
 const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
 
-const HeapNavigationContainer =
-  Heap.withReactNavigationAutotrack(NavigationContainer);
+// const HeapNavigationContainer =
+//   Heap.withReactNavigationAutotrack(NavigationContainer);
 
 const Main = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary FallbackComponent={ErrorFallbacComponent}>
         <UserContextProvider>
-          <HeapNavigationContainer>
+          <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
               <Stack.Screen name="AuthStack" component={AuthStack} />
               <Stack.Screen name="AppStack" component={AppStack} />
             </Stack.Navigator>
-          </HeapNavigationContainer>
+          </NavigationContainer>
         </UserContextProvider>
       </ErrorBoundary>
     </QueryClientProvider>

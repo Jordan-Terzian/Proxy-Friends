@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, createContext } from "react";
 import { View, Text, Button } from "react-native";
 
-export const UserContext = React.createContext();
+export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
   const initialContextValue = {
