@@ -6,9 +6,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderNavigation from '../../components/molecules/headerNavigation';
 import InterestLabel from '../../components/atoms/interestsLabel';
 import PastEvent from '../../components/molecules/pastEvent';
+import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = () => {
 
+  const navigation = useNavigation();
   const interestsData = [
     { "name": "Video games" },
     { "name": "Movies" },
@@ -39,6 +41,7 @@ const ProfileScreen = () => {
         newIconButtonVisible={true}
         headerBackVisible={false}
         headerNextVisible={false}
+        onPress={() => navigation.navigate('SettingsStack')}
         iconName={'cog'}
       />
       <ScrollView nestedScrollEnabled={true}>

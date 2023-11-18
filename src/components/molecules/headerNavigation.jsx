@@ -1,6 +1,6 @@
 // HeaderNavigation.js
 import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, Text } from 'react-native';
 import ProgressBar from '../atoms/progressBar';
 import IconButton from '../atoms/iconButton';
 import BackNextButton from '../atoms/backNextButton';
@@ -17,6 +17,7 @@ const HeaderNavigation = ({
     validate,
     currentStep,
     totalSteps,
+    title
     // ... any other props you need
 }) => {
     const showProgressBar = typeof currentStep === 'number' && typeof totalSteps === 'number';
@@ -41,6 +42,14 @@ const HeaderNavigation = ({
                         <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
                     </View>
                 )}
+
+                {/* Title */}
+                <View style={styles.progressBarContainer}>
+                    <View>
+                        <Text style={styles.title}>{title}</Text>
+                    </View>
+                </View>
+
 
                 {/* Next or Add button */}
                 <View style={styles.sideContainer}>
@@ -88,6 +97,10 @@ const styles = StyleSheet.create({
         alignItems: 'center', // Center the progress bar horizontally
         marginHorizontal: 50, // Increase this value to shorten the progress bar
     },
+    title: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    }
     // ... any other styles you need
 });
 
