@@ -42,15 +42,15 @@ const ProfileScreen = () => {
         iconName={'cog'}
       />
       <ScrollView nestedScrollEnabled={true}>
-        <View style={styles.header}>
+        <View style={ProfileStackStyles.mainSummary}>
           <Image
             source={{ uri: 'https://placekitten.com/200/200' }} // Placeholder for profile picture
-            style={styles.profilePic}
+            style={ProfileStackStyles.profilePic}
           />
-          <View style={styles.summary}>
-            <Text style={styles.name}>Ryan Gosling</Text>
+          <View style={ProfileStackStyles.summary}>
+            <Text style={ProfileStackStyles.name}>Ryan Gosling</Text>
             <Text style={ProfileStackStyles.subtitle}>21, Male</Text>
-            <View style={styles.icons}>
+            <View style={ProfileStackStyles.icons}>
               <Ionicons name="logo-facebook" size={24} color="black" style={{ marginRight: 5 }} />
               <Ionicons name="logo-instagram" size={24} color="black" />
             </View>
@@ -58,7 +58,7 @@ const ProfileScreen = () => {
         </View>
         <View style={ProfileStackStyles.container}>
           <View style={ProfileStackStyles.section}>
-            <Text style={styles.description}>
+            <Text style={ProfileStackStyles.description}>
               Actor and Male model. I was in barbie, that was pretty cool
             </Text>
           </View>
@@ -69,7 +69,7 @@ const ProfileScreen = () => {
 
           <View style={ProfileStackStyles.section}>
             <Text style={ProfileStackStyles.header2}>Past Events</Text>
-            <View style={styles.eventsGrid}>
+            <View style={ProfileStackStyles.eventsGrid}>
               {pastEventsData.map((event, index) => (
                 <PastEvent key={index} event={event} />
               ))}
@@ -80,41 +80,5 @@ const ProfileScreen = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  header: {
-    alignItems: 'flex-start',
-    padding: 20,
-    flexDirection: 'row',
-  },
-  summary: {
-    alignItems: 'flex-start',
-    flexDirection: 'column',
-    marginLeft: 10,
-  },
-  eventsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  profilePic: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-  name: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 10,
-  },
-  description: {
-    marginVertical: 2,
-    fontSize: 16,
-  },
-  icons: {
-    flexDirection: 'row',
-    width: '100%',
-    marginTop: 10,
-  },
-});
 
 export default ProfileScreen;
