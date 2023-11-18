@@ -28,7 +28,7 @@ const SecurityAndPrivacyScreen = () => {
                 saveVisible={true}
                 onPress={() => navigation.goBack()}
             />
-            <ScrollView>
+            <ScrollView nestedScrollEnabled={true} contentContainerStyle={{ paddingTop: 20 }}>
                 <View style={SettingsStackStyles.pageContainer}>
                     <View style={SettingsStackStyles.section}>
                         <Text style={SettingsStackStyles.header2}>
