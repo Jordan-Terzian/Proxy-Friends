@@ -29,7 +29,7 @@ const SettingsHomeScreen = () => {
                     <SettingsItem
                         iconName="wheelchair-accessibility"
                         text="Accessibility"
-                        nextScreen=""
+                        nextScreen="Accessibility"
                     />
                     <SettingsItem
                         iconName="bug"
