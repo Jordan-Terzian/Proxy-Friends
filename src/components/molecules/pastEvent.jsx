@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   image: {
     width: 60, // Fixed width
     height: 60, // Fixed height
-    borderRadius: 30, // Circular images
+    borderRadius: 10, // Circular images
     marginBottom: 8, // Margin bottom for spacing between the image and title
   },
   title: {
