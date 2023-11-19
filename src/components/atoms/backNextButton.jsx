@@ -8,7 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 const BackNextButton = ({
     direction = 'back',
     nextScreen,
-    validate,
     onPressNext,
     ...props
 }) => {
@@ -20,7 +19,7 @@ const BackNextButton = ({
             navigation.goBack();
             return;
         }
-        if (direction === 'next' && (!validate || validate())) {
+        if (direction === 'next') {
             onPressNext();
         }
     }

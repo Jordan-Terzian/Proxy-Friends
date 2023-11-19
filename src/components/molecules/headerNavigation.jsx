@@ -13,7 +13,6 @@ const HeaderNavigation = ({
     onPress,
     iconName,
     nextLabel = 'Next',
-    validate,
     currentStep,
     totalSteps,
     title,
@@ -65,7 +64,6 @@ const HeaderNavigation = ({
                             labelVisible={true}
                             onPressNext={isNextEnabled ? onNext : null}
                             isDisabled={!isNextEnabled}
-                            validate={validate}
                         // ... any other props you need
                         />
                     )}

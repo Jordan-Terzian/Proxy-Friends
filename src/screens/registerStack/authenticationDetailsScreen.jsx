@@ -10,6 +10,7 @@ import Metrics from '../../constants/metrics';
 
 import createRegisterStyles from '../styles/registerStackStyles';
 import { useNavigation } from '@react-navigation/native';
+import validatePassword from '../../utils/validatePassword';
 
 
 const AuthenticationDetailsScreen = () => {
@@ -25,12 +26,16 @@ const AuthenticationDetailsScreen = () => {
     // Check if all required fields are filled and passwords match
     const isNextEnabled = email && username && password && reEnteredPassword;
 
+    const [validationMessage, setValidationMessage] = useState('');
+
     const goToNextScreen = () => {
-        navigation.navigate('PersonalDetails', {
-            email,
-            username,
-            password
-        });
+        const validation = validatePassword(password, reEnteredPassword);
+        if (validation.isValid) {
+            navigation.navigate('PersonalDetails', { email, username, password });
+            setValidationMessage('');
+        } else {
+            setValidationMessage(validation.message);
+        }
     };
 
     return (
@@ -114,6 +119,9 @@ const AuthenticationDetailsScreen = () => {
                                 onChangeText={setReEnteredPassword}
                             />
                         </View>
+                    </View>
+                    <View style={{ marginHorizontal: 20 }}>
+                        <Text style={{ color: 'red' }}>{validationMessage}</Text>
                     </View>
                 </View>
             </ScrollView>
