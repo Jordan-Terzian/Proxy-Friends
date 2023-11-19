@@ -93,6 +93,9 @@ const EditProfileScreen = () => {
         setIsOverlayVisible(!isOverlayVisible);
     }
 
+    const handleDeleteInterest = (interestName) => {
+        setInterests(interests.filter(interest => interest.name !== interestName));
+    };
 
     const handleSave = async () => {
         const updatedUserData = {
@@ -210,7 +213,11 @@ const EditProfileScreen = () => {
                         <Text style={[SettingsStackStyles.header2]}>
                             Interests:
                         </Text>
-                        <InterestLabel interests={interests} />
+                        <InterestLabel
+                            interests={interests}
+                            onDelete={handleDeleteInterest}
+                            showDelete={interests.length > 3}
+                        />
                         <IconButton
                             icon="plus"
                             onPress={toggleOverlay}
