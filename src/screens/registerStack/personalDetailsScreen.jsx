@@ -11,30 +11,48 @@ import CheckboxGroup from '../../components/molecules/checkBoxGroup';
 
 import createRegisterStyles from '../styles/registerStackStyles';
 
+import { useNavigation } from '@react-navigation/native';
 
 const genderOptions = ['Male', 'Female', 'Prefer not to say', 'Other']
 
-const PersonalDetailsScreen = () => {
+const PersonalDetailsScreen = ({ route }) => {
     const RegisterStyles = createRegisterStyles();
+    const navigation = useNavigation();
 
     const [gender, setGender] = useState('');
     const [otherText, setOtherText] = useState('');
     const [showOtherTextInput, setShowOtherTextInput] = useState(false);
     const [dateOfBirth, setDateOfBirth] = useState('');
 
+    const handleDateOfBirthConfirm = (date) => {
+        // Convert the date to an ISO string or any other string format you prefer
+        setDateOfBirth(date.toISOString());
+    };
 
+    const { email, username, password } = route.params;
+   
     const handleGenderChange = (value) => {
         setGender(value);
         setShowOtherTextInput(value === 'Other');
     };
-
-
+    
+    const goToNextScreen = () => {
+        const finalGender = gender === 'Other' && otherText ? otherText : gender;
+    
+        navigation.navigate('CustomiseYourProfile', {
+            email,
+            username,
+            password,
+            dateOfBirth,
+            gender: finalGender,
+        });
+    };
 
     return (
         <SafeAreaView style={RegisterStyles.safeAreaView} edges={['bottom']}>
             <HeaderNavigation
                 title=""
-                nextScreen="CustomiseYourProfile"
+                onNext={goToNextScreen}
                 currentStep={2}
                 totalSteps={6}
             />
@@ -58,7 +76,7 @@ const PersonalDetailsScreen = () => {
                         </Text>
                         <DatePickerField
                             placeholder="dd/mm/yyyy"
-                            onConfirm={setDateOfBirth}
+                            onConfirm={handleDateOfBirthConfirm}
                             showIcon={true}
                         />
                     </View>
@@ -74,7 +92,7 @@ const PersonalDetailsScreen = () => {
                             selectedOption={gender}
                             onOptionChange={handleGenderChange}
                         />
-                        {gender === 'Other' && <TextInputIcon placeholder="Other..." />}
+                        {gender === 'Other' && <TextInputIcon placeholder="Other..." value={otherText} onChangeText={setOtherText} />}
                     </View>
                 </View>
             </ScrollView>

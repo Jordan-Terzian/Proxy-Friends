@@ -9,6 +9,7 @@ const BackNextButton = ({
     direction = 'back',
     nextScreen,
     validate,
+    onPressNext,
     ...props
 }) => {
 
@@ -19,8 +20,8 @@ const BackNextButton = ({
             navigation.goBack();
             return;
         }
-        if (direction === 'next' && nextScreen && (!validate || validate())) {
-            navigation.navigate(nextScreen);
+        if (direction === 'next' && (!validate || validate())) {
+            onPressNext();
         }
     }
 

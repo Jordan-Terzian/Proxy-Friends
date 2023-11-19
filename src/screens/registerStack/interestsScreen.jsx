@@ -11,8 +11,9 @@ import Overlay from '../../components/organisms/overlay';
 import ShapedButton from '../../components/atoms/shapedButton';
 import InterestButton from '../../components/atoms/interestsButton';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const InterestsScreen = () => {
+const InterestsScreen = ({route}) => {
 
     const navigation = useNavigation();
 
@@ -23,7 +24,9 @@ const InterestsScreen = () => {
 
     const [interests, setInterests] = useState([
         'Gaming', 'Soccer', 'Gardening', 'Bouldering', 'Martial Arts', 'Reading', 'Anime', 'Weight Lifting', 'Movies'
-    ]); // Now a state
+    ]); 
+
+    const { email, username, password, dateOfBirth, gender, name, bio, image } = route.params;
 
     const addNewInterest = (newInterest) => {
         if (newInterest && !interests.includes(newInterest)) {
@@ -44,6 +47,19 @@ const InterestsScreen = () => {
     const toggleOverlay = () => {
         setIsOverlayVisible(!isOverlayVisible);
     };
+
+    const handleRegister = async() => {
+        const userData = {
+            email, username, password, dateOfBirth, gender, name, bio, image, selectedInterests
+        }
+
+        try {
+            await AsyncStorage.setItem('@userData', JSON.stringify(userData));
+            navigation.navigate('AppStack');
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     return (
         <SafeAreaView style={RegisterStyles.safeAreaView} edges={['bottom']}>
@@ -88,7 +104,7 @@ const InterestsScreen = () => {
             />
             <ShapedButton
                 label="Register"
-                onPress={() => navigation.navigate('AppStack')}
+                onPress={() => handleRegister()}
                 style = {{alignSelf: 'center'}}
             />
 

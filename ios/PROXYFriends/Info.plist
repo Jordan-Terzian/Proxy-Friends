@@ -18,6 +18,8 @@
 	<string>????</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>NsLocationUsageDescription</key>
+	<string>$(PRODUCT_NAME) uses your location to show you nearby friends.</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>

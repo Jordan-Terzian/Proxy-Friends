@@ -14,20 +14,40 @@ import UseToggle from '../../utils/useToggle';
 import ModalImagePicker from '../../components/molecules/modalImagePicker';
 import ImageButton from '../../components/atoms/imageButton';
 import BioInputField from '../../components/molecules/textInputMultiLine';
+import { useNavigation } from '@react-navigation/native';
 
 
-const CustomiseYourProfileScreen = () => {
+const CustomiseYourProfileScreen = ({ route }) => {
 
     const RegisterStyles = createRegisterStyles();
+    const navigation = useNavigation();
     const initialImage = Image.resolveAssetSource(defaultProfile).uri;
     const { value: slideMenu, toggleValue: toggleSlideMenu } = UseToggle();
     const [image, setImage] = useState(initialImage);
+    const [bio, setBio] = useState('');
+    const [name, setName] = useState('');
+
+    const { email, username, password, dateOfBirth, gender } = route.params;
+
+    const goToNextScreen = () => {
+        navigation.navigate('Verification', {
+            email, 
+            username,
+            password,
+            dateOfBirth, 
+            gender,
+            name,
+            bio,
+            image
+        });
+    }
+
 
     return (
         <SafeAreaView style={RegisterStyles.safeAreaView} edges={['bottom']}>
             <HeaderNavigation
                 title=""
-                nextScreen="Verification"
+                onNext={goToNextScreen}
                 currentStep={3} 
                 totalSteps={6} 
             />
@@ -70,6 +90,8 @@ const CustomiseYourProfileScreen = () => {
                             placeholder="Enter Name"
                             style={{ width: '90%' }}
                             icon ="account-outline"
+                            value={name}
+                            onChangeText={setName}
                         />
                     </View>
                     <View style={RegisterStyles.section}>
@@ -82,6 +104,8 @@ const CustomiseYourProfileScreen = () => {
                         <BioInputField
                             placeholder="Enter Bio"
                             inputLimit={150}
+                            value={bio}
+                            onChangeText={setBio}
                         />
                     </View>
                 </View>

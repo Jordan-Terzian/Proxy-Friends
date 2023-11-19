@@ -10,8 +10,23 @@ import { useNavigation } from "@react-navigation/native";
 
 import createRegisterStyles from "../styles/registerStackStyles";
 
-const LocationDetailsScreen = () => {
+const LocationDetailsScreen = ({route}) => {
   const navigation = useNavigation();
+
+  const {email, username, password, gender, dateOfBirth, name, bio, image} = route.params;
+
+  const goToNextScreen = () => {
+    navigation.navigate("Interests", {
+      email,
+      username,
+      password,
+      gender,
+      dateOfBirth,
+      name, 
+      bio,
+      image,
+    });
+  };
 
   useEffect(() => {
     (async () => {
@@ -27,7 +42,7 @@ const LocationDetailsScreen = () => {
       let location = await Location.getCurrentPositionAsync({});
 
       console.log(location);
-      navigation.navigate("Interests");
+      goToNextScreen();
     })();
   }, []);
 
@@ -36,7 +51,7 @@ const LocationDetailsScreen = () => {
     <SafeAreaView style={RegisterStyles.safeAreaView} edges={["bottom"]}>
       <HeaderNavigation
         title=""
-        nextScreen="Interests"
+        onNext={goToNextScreen}
         currentStep={5}
         totalSteps={6}
       />

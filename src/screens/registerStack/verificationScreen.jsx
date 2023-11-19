@@ -12,21 +12,38 @@ import defaultVerification from '../../assets/images/verificationDefault.png';
 import UseToggle from '../../utils/useToggle';
 import ModalImagePicker from '../../components/molecules/modalImagePicker';
 import ImageButton from '../../components/atoms/imageButton';
+import { useNavigation } from '@react-navigation/native';
 
 
 
-const VerificationScreen = () => {
+const VerificationScreen = ({route}) => {
 
     const RegisterStyles = createRegisterStyles();
+    const navigation = useNavigation();
     const initialImage = Image.resolveAssetSource(defaultVerification).uri;
     const { value: slideMenu, toggleValue: toggleSlideMenu } = UseToggle();
-    const [image, setImage] = useState(initialImage);
+    const [verificationImage, setVerificationImage] = useState(initialImage);
+
+    const { email, username, password, gender, dateOfBirth, name, bio, image } = route.params;
+
+    const goToNextScreen = () => {
+        navigation.navigate('LocationDetails', {
+            email,
+            username,
+            password,
+            gender,
+            dateOfBirth,
+            name,
+            bio,
+            image,
+        }); 
+    } //No need to take in the verification image since we have no backend. 
 
     return (
         <SafeAreaView style={RegisterStyles.safeAreaView} edges={['bottom']}>
             <HeaderNavigation
                 title=""
-                nextScreen="LocationDetails"
+                onNext={goToNextScreen}
                 currentStep={4} 
                 totalSteps={6} 
             />
@@ -48,13 +65,13 @@ const VerificationScreen = () => {
                         <View style={styles.profilePictureContainer}>
                             <ImageButton
                                 size={100}
-                                imageUri={image}
+                                imageUri={verificationImage}
                                 onPress={toggleSlideMenu}
                             />
                             <ModalImagePicker
                                 isVisible={slideMenu}
                                 toggleVisibility={toggleSlideMenu}
-                                onImagePicked={(uri) => setImage(uri)}
+                                onImagePicked={(uri) => setVerificationImage(uri)}
                             />
                         </View>
                     </View>

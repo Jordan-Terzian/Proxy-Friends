@@ -13,12 +13,12 @@ const HeaderNavigation = ({
     onPress,
     iconName,
     nextLabel = 'Next',
-    nextScreen,
     validate,
     currentStep,
     totalSteps,
     title,
     saveVisible = false,
+    onNext
     // ... any other props you need
 }) => {
     const showProgressBar = typeof currentStep === 'number' && typeof totalSteps === 'number';
@@ -61,7 +61,7 @@ const HeaderNavigation = ({
                             direction="next"
                             label={nextLabel}
                             labelVisible={true}
-                            nextScreen={nextScreen}
+                            onPressNext={onNext}
                             validate={validate}
                         // ... any other props you need
                         />

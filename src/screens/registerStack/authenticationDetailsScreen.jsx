@@ -1,3 +1,5 @@
+
+import React, {useState} from 'react';
 import { View, Text, ScrollView } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,16 +9,32 @@ import TextInputIcon from '../../components/molecules/textInput';
 import Metrics from '../../constants/metrics';
 
 import createRegisterStyles from '../styles/registerStackStyles';
+import { useNavigation } from '@react-navigation/native';
 
 
 const AuthenticationDetailsScreen = () => {
     const RegisterStyles = createRegisterStyles();
 
+    const navigation = useNavigation();
+
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [reEnteredPassword, setReEnteredPassword] = useState('');
+
+    const goToNextScreen = () => {
+        navigation.navigate('PersonalDetails', {
+            email,
+            username,
+            password
+        });
+    };
+
     return (
         <SafeAreaView style={RegisterStyles.safeAreaView} edges={['bottom']}>
             <HeaderNavigation
                 title=""
-                nextScreen="PersonalDetails"
+                onNext={goToNextScreen}
                 currentStep={1} // Update this value based on the current screen
                 totalSteps={6} // Total number of registration screens
             />
@@ -43,6 +61,8 @@ const AuthenticationDetailsScreen = () => {
                             icon="email-outline"
                             keyboardType="email-address"
                             autoCapitalize="none"
+                            value={email}
+                            onChangeText={setEmail}
                         />
                     </View>
                     <View style={RegisterStyles.section}>
@@ -58,6 +78,8 @@ const AuthenticationDetailsScreen = () => {
                             icon="account-outline"
                             autoCapitalize="none"
                             inputLimit={40}
+                            value={username}
+                            onChangeText={setUsername}
                         />
                     </View>
                     <View style={RegisterStyles.section}>
@@ -76,12 +98,16 @@ const AuthenticationDetailsScreen = () => {
                                 style={{ width: '90%' }}
                                 icon="lock-outline"
                                 secureTextEntry
+                                value = {password}
+                                onChangeText = {setPassword}
                             />
                             <TextInputIcon
                                 placeholder="Re-enter your password"
                                 style={{ width: '90%' }}
                                 icon="lock-outline"
                                 secureTextEntry
+                                value = {reEnteredPassword}
+                                onChangeText = {setReEnteredPassword}
                             />
                         </View>
                     </View>

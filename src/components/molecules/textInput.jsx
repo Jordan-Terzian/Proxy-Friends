@@ -44,6 +44,7 @@ const TextInputIcon = ({
         onChangeText={handleTextChange}
         maxLength={inputLimit ?? undefined}
         placeholder={placeholder}
+        placeholderTextColor={"#636363"}
         secureTextEntry={hidden}
         value={text}
         {...textInputProps}
