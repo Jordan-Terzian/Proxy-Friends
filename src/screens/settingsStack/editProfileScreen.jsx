@@ -24,19 +24,6 @@ const EditProfileScreen = () => {
 
     const [userData, setUserData] = useState(null);
 
-    const defaultUserData = {
-        bio: "Actor and Male model. I was in barbie, that was pretty cool",
-        dateOfBirth: "2002-10-19T07:01:54.207Z",
-        email: "ryan@email.com",
-        gender: "Male",
-        image: "https://placekitten.com/200/200",
-        username: "ryangosling",
-        name: "Ryan Gosling",
-        selectedInterests: ["Video games", "Movies", "Marvel", "Martial Arts", "Gym", "Politics"],
-    };
-
-    console.log(userData)
-
     const isStandardGenderOption = ['Male', 'Female', 'Prefer not to say'].includes(userData?.gender);
     const navigation = useNavigation();
     const SettingsStackStyles = createSettingsStackStyles();
@@ -59,11 +46,6 @@ const EditProfileScreen = () => {
             try {
                 const userDataJson = await AsyncStorage.getItem('@userData');
                 let data = userDataJson != null ? JSON.parse(userDataJson) : null;
-
-                if (!data) {
-                    await AsyncStorage.setItem('@userData', JSON.stringify(defaultUserData));
-                    data = defaultUserData;
-                }
 
                 // Determine if the gender is one of the standard options
                 const isStandardGenderOption = ['Male', 'Female', 'Prefer not to say'].includes(data.gender);
