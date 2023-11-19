@@ -39,7 +39,7 @@ const SettingsHomeScreen = () => {
                     <SettingsItem
                         iconName="account-box-multiple"
                         text="Linked Accounts"
-                        nextScreen=""
+                        nextScreen="LinkedAccounts"
                     />
                     <SettingsItem
                         iconName="logout"
