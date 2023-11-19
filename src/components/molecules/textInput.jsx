@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     height: Metrics.screenWidth * 0.09,
     minHeight: 34,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "left",
     paddingHorizontal: Metrics.screenWidth * 0.035,
   },
   counter: {

@@ -45,11 +45,13 @@ const HeaderNavigation = ({
                 )}
 
                 {/* Title */}
-                <View style={styles.progressBarContainer}>
-                    <View>
-                        <Text style={styles.title}>{title}</Text>
+                {!showProgressBar && (
+                    <View style={styles.progressBarContainer}>
+                        <View>
+                            <Text style={styles.title}>{title}</Text>
+                        </View>
                     </View>
-                </View>
+                )}
 
 
                 {/* Next or Add button */}

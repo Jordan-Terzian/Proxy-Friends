@@ -42,7 +42,7 @@ const LinkedAccountsScreen = () => {
                     <IconButton
                         icon="plus"
                         onPress={toggleOverlay}
-                        size={15} // You can set the size you prefer
+                        size={15} 
                         style={styles.addAccountButton}
                     />
                 </View>

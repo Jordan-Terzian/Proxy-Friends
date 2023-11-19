@@ -19,7 +19,7 @@ const SettingsHomeScreen = () => {
                     <SettingsItem
                         iconName="account-edit"
                         text="Edit Profile"
-                        nextScreen=""
+                        nextScreen="EditProfile"
                     />
                     <SettingsItem
                         iconName="security"

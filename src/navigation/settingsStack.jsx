@@ -7,6 +7,7 @@ import SecurityAndPrivacyScreen from "../screens/settingsStack/security&PrivacyS
 import AccessibilityScreen from "../screens/settingsStack/accessibilityScreen";
 import ReportAProblemScreen from "../screens/settingsStack/reportAProblemScreen";
 import LinkedAccountsScreen from "../screens/settingsStack/linkedAccountsScreen";
+import EditProfileScreen from "../screens/settingsStack/editProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ const SettingsStack = () => {
             <Stack.Screen name="Accessibility" component={AccessibilityScreen} />
             <Stack.Screen name="ReportAProblem" component={ReportAProblemScreen} />
             <Stack.Screen name="LinkedAccounts" component={LinkedAccountsScreen} />
+            <Stack.Screen name="EditProfile" component={EditProfileScreen} />
         </Stack.Navigator>
     );
 }
