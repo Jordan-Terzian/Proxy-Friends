@@ -47,14 +47,6 @@ const ProfileScreen = () => {
 
 
   const navigation = useNavigation();
-  const interestsData = [
-    { "name": "Video games" },
-    { "name": "Movies" },
-    { "name": "Marvel" },
-    { "name": "Martial Arts" },
-    { "name": "Gym" },
-    { "name": "Politics" },
-  ];
 
   const pastEventsData = [
     {
