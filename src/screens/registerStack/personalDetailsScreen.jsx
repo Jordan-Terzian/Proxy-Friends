@@ -10,7 +10,7 @@ import DatePickerField from '../../components/molecules/datePickerField';
 import CheckboxGroup from '../../components/molecules/checkBoxGroup';
 
 import createRegisterStyles from '../styles/registerStackStyles';
-
+import calculateAge from '../../utils/calculateAge';
 import { useNavigation } from '@react-navigation/native';
 
 const genderOptions = ['Male', 'Female', 'Prefer not to say', 'Other']
@@ -24,6 +24,8 @@ const PersonalDetailsScreen = ({ route }) => {
     const [showOtherTextInput, setShowOtherTextInput] = useState(false);
     const [dateOfBirth, setDateOfBirth] = useState('');
 
+    const [errorMessage, setErrorMessage] = useState('');
+
     const isNextEnabled = gender && dateOfBirth;
 
     const handleDateOfBirthConfirm = (date) => {
@@ -32,15 +34,32 @@ const PersonalDetailsScreen = ({ route }) => {
     };
 
     const { email, username, password } = route.params;
-   
+
     const handleGenderChange = (value) => {
         setGender(value);
         setShowOtherTextInput(value === 'Other');
     };
-    
+
     const goToNextScreen = () => {
+
+        const age = calculateAge(dateOfBirth);
+        const birthDate = new Date(dateOfBirth);
+        const currentDate = new Date();
+
+        if (birthDate > currentDate) {
+            setErrorMessage("The selected date cannot be in the future.");
+            return;
+        }
+
+        if (age < 18) {
+            setErrorMessage("You must be at least 18 years old.");
+            return;
+        }
+
+        setErrorMessage(""); // Clear any previous error message
+
         const finalGender = gender === 'Other' && otherText ? otherText : gender;
-    
+
         navigation.navigate('CustomiseYourProfile', {
             email,
             username,
@@ -96,6 +115,9 @@ const PersonalDetailsScreen = ({ route }) => {
                             onOptionChange={handleGenderChange}
                         />
                         {gender === 'Other' && <TextInputIcon placeholder="Other..." value={otherText} onChangeText={setOtherText} />}
+                    </View>
+                    <View style={{ marginHorizontal: 20 }}>
+                        <Text style={{ color: 'red' }}>{errorMessage}</Text>
                     </View>
                 </View>
             </ScrollView>
