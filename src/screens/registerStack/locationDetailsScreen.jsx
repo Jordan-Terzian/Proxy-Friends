@@ -54,6 +54,7 @@ const LocationDetailsScreen = ({route}) => {
         onNext={goToNextScreen}
         currentStep={5}
         totalSteps={6}
+        isNextEnabled={true}
       />
       <View style={RegisterStyles.underHeaderContainer}>
         <Text style={RegisterStyles.header1}>LOCATION DETAILS</Text>

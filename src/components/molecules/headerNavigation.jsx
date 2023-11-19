@@ -19,6 +19,7 @@ const HeaderNavigation = ({
     title,
     saveVisible = false,
     isSaveEnabled,
+    isNextEnabled,
     onNext
     // ... any other props you need
 }) => {
@@ -62,7 +63,8 @@ const HeaderNavigation = ({
                             direction="next"
                             label={nextLabel}
                             labelVisible={true}
-                            onPressNext={onNext}
+                            onPressNext={isNextEnabled ? onNext : null}
+                            isDisabled={!isNextEnabled}
                             validate={validate}
                         // ... any other props you need
                         />

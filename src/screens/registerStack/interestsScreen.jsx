@@ -13,7 +13,7 @@ import InterestButton from '../../components/atoms/interestsButton';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const InterestsScreen = ({route}) => {
+const InterestsScreen = ({ route }) => {
 
     const navigation = useNavigation();
 
@@ -22,9 +22,11 @@ const InterestsScreen = ({route}) => {
 
     const [selectedInterests, setSelectedInterests] = useState([]);
 
+    const isRegisterEnabled = selectedInterests.length >= 3;
+
     const [interests, setInterests] = useState([
         'Gaming', 'Soccer', 'Gardening', 'Bouldering', 'Martial Arts', 'Reading', 'Anime', 'Weight Lifting', 'Movies'
-    ]); 
+    ]);
 
     const { email, username, password, dateOfBirth, gender, name, bio, image } = route.params;
 
@@ -48,7 +50,7 @@ const InterestsScreen = ({route}) => {
         setIsOverlayVisible(!isOverlayVisible);
     };
 
-    const handleRegister = async() => {
+    const handleRegister = async () => {
         const userData = {
             email, username, password, dateOfBirth, gender, name, bio, image, selectedInterests
         }
@@ -67,9 +69,9 @@ const InterestsScreen = ({route}) => {
                 title=""
                 headerNextVisible={false}
                 newIconButtonVisible={true}
-                onPress={toggleOverlay} 
-                currentStep={6} 
-                totalSteps={6} 
+                onPress={toggleOverlay}
+                currentStep={6}
+                totalSteps={6}
                 iconName={'plus'}
             />
             <ScrollView nestedScrollEnabled={true}>
@@ -80,7 +82,7 @@ const InterestsScreen = ({route}) => {
                 </View>
                 <View style={RegisterStyles.container}>
                     <Text style={RegisterStyles.subtitle}>
-                        Please Choose at leat 3 interests, or enter your own.
+                        Please Choose at least 3 interests, or enter your own.
                     </Text>
                 </View>
                 <View style={RegisterStyles.section}>
@@ -105,7 +107,8 @@ const InterestsScreen = ({route}) => {
             <ShapedButton
                 label="Register"
                 onPress={() => handleRegister()}
-                style = {{alignSelf: 'center'}}
+                style={{ alignSelf: 'center' }}
+                isEnabled={isRegisterEnabled} // Pass the enabled/disabled state
             />
 
         </SafeAreaView >

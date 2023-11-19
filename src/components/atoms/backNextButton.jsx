@@ -30,8 +30,9 @@ const BackNextButton = ({
             <HeaderBackButton
                 testID="back-button"
                 onPress={handlePress}
-                labelStyle={direction === 'next' ? styles.mirrorFlip : {}}
-                tintColor={'black'}
+                disabled={props.isDisabled}  // Add this line
+                labelStyle={[direction === 'next' ? styles.mirrorFlip : {}, props.isDisabled ? styles.disabled : {}]}  // Add styles for disabled state
+                tintColor={props.isDisabled ? '#cccccc' : 'black'}  // Change color if disabled
                 {...props}
             />
         </View>
@@ -41,7 +42,10 @@ const BackNextButton = ({
 const styles = StyleSheet.create({
     mirrorFlip: {
         transform: [{ scaleX: -1 }]
-    }
+    },
+    disabled: {
+        color: '#cccccc', // Style for disabled state
+    },
 });
 
 export default BackNextButton;

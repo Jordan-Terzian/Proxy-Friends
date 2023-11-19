@@ -46,6 +46,7 @@ const VerificationScreen = ({route}) => {
                 onNext={goToNextScreen}
                 currentStep={4} 
                 totalSteps={6} 
+                isNextEnabled={true}
             />
             <ScrollView nestedScrollEnabled={true}>
                 <View style={RegisterStyles.underHeaderContainer}>

@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -22,6 +22,9 @@ const AuthenticationDetailsScreen = () => {
     const [password, setPassword] = useState('');
     const [reEnteredPassword, setReEnteredPassword] = useState('');
 
+    // Check if all required fields are filled and passwords match
+    const isNextEnabled = email && username && password && reEnteredPassword;
+
     const goToNextScreen = () => {
         navigation.navigate('PersonalDetails', {
             email,
@@ -37,6 +40,7 @@ const AuthenticationDetailsScreen = () => {
                 onNext={goToNextScreen}
                 currentStep={1} // Update this value based on the current screen
                 totalSteps={6} // Total number of registration screens
+                isNextEnabled={isNextEnabled}
             />
             <ScrollView nestedScrollEnabled={true}>
                 <View style={RegisterStyles.underHeaderContainer}>
@@ -92,22 +96,22 @@ const AuthenticationDetailsScreen = () => {
                             {'\n'}‎ • at least one capital letter{'\n'}
                             At least twelve characters are recommended.
                         </Text>
-                        <View style = {{ rowGap: Metrics.screenWidth * 0.03 }}>
+                        <View style={{ rowGap: Metrics.screenWidth * 0.03 }}>
                             <TextInputIcon
                                 placeholder="Enter your password"
                                 style={{ width: '90%' }}
                                 icon="lock-outline"
                                 secureTextEntry
-                                value = {password}
-                                onChangeText = {setPassword}
+                                value={password}
+                                onChangeText={setPassword}
                             />
                             <TextInputIcon
                                 placeholder="Re-enter your password"
                                 style={{ width: '90%' }}
                                 icon="lock-outline"
                                 secureTextEntry
-                                value = {reEnteredPassword}
-                                onChangeText = {setReEnteredPassword}
+                                value={reEnteredPassword}
+                                onChangeText={setReEnteredPassword}
                             />
                         </View>
                     </View>

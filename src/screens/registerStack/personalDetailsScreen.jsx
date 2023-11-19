@@ -24,6 +24,8 @@ const PersonalDetailsScreen = ({ route }) => {
     const [showOtherTextInput, setShowOtherTextInput] = useState(false);
     const [dateOfBirth, setDateOfBirth] = useState('');
 
+    const isNextEnabled = gender && dateOfBirth;
+
     const handleDateOfBirthConfirm = (date) => {
         // Convert the date to an ISO string or any other string format you prefer
         setDateOfBirth(date.toISOString());
@@ -55,6 +57,7 @@ const PersonalDetailsScreen = ({ route }) => {
                 onNext={goToNextScreen}
                 currentStep={2}
                 totalSteps={6}
+                isNextEnabled={isNextEnabled}
             />
             <ScrollView nestedScrollEnabled={true}>
                 <View style={RegisterStyles.underHeaderContainer}>

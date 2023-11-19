@@ -29,6 +29,8 @@ const CustomiseYourProfileScreen = ({ route }) => {
 
     const { email, username, password, dateOfBirth, gender } = route.params;
 
+    const isNextEnabled = name && bio && image;
+
     const goToNextScreen = () => {
         navigation.navigate('Verification', {
             email, 
@@ -50,6 +52,7 @@ const CustomiseYourProfileScreen = ({ route }) => {
                 onNext={goToNextScreen}
                 currentStep={3} 
                 totalSteps={6} 
+                isNextEnabled={isNextEnabled}
             />
             <ScrollView nestedScrollEnabled={true}>
                 <View style={RegisterStyles.underHeaderContainer}>
