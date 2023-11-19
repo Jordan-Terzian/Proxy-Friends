@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { StyleSheet, View, TextInput, Text } from "react-native";
 
@@ -15,7 +15,12 @@ const BioInputField = ({
 }) => {
   const styles = createStyles();
 
-  const [text, setText] = useState("");
+  const [text, setText] = useState(value || "");
+
+  // Update text state when value prop changes
+  useEffect(() => {
+    setText(value || "");
+  }, [value]);
 
   const handleTextChange = (inputText) => {
     if (inputLimit && inputText.length > inputLimit) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, TextInput, Text } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import IconButton from "../atoms/iconButton";
@@ -9,10 +9,15 @@ const TextInputIcon = ({
   icon,
   placeholder,
   inputLimit,
+  value,
   ...textInputProps
 }) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(value || "");
   const [hidden, setHidden] = useState(secureTextEntry);
+
+  useEffect(() => {
+    setText(value || "");
+  }, [value]);
 
   const handleTextChange = (inputText) => {
     if (inputLimit && inputText.length > inputLimit) {

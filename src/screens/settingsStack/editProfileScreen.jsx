@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import createSettingsStackStyles from '../styles/settingsStackStyles';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,29 +14,79 @@ import defaultProfile from '../../assets/images/defaultProfile.png';
 import InterestLabel from '../../components/atoms/interestsLabel';
 import IconButton from '../../components/atoms/iconButton';
 import Overlay from '../../components/organisms/overlay';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const genderOptions = ['Male', 'Female', 'Prefer not to say', 'Other']
 
 const EditProfileScreen = () => {
 
+
+    const [userData, setUserData] = useState(null);
+
+    const defaultUserData = {
+      bio: "Actor and Male model. I was in barbie, that was pretty cool",
+      dateOfBirth: "2002-10-19T07:01:54.207Z",
+      email: "ryan@email.com",
+      gender: "Male",
+      image: "https://placekitten.com/200/200",
+      name: "Ryan Gosling",
+      selectedInterests: ["Video games", "Movies", "Marvel", "Martial Arts", "Gym", "Politics"],
+    };
+  
+
+
+    console.log(userData)
+
     const navigation = useNavigation();
     const SettingsStackStyles = createSettingsStackStyles();
 
     const initialImage = Image.resolveAssetSource(defaultProfile).uri;
     const { value: slideMenu, toggleValue: toggleSlideMenu } = UseToggle();
-    const [image, setImage] = useState(initialImage);
 
-    const [gender, setGender] = useState('');
     const [otherText, setOtherText] = useState('');
     const [showOtherTextInput, setShowOtherTextInput] = useState(false);
+    const [name, setName] = useState(userData?.name || '');
+    const [email, setEmail] = useState(userData?.email || '');
+    const [username, setUsername] = useState(userData?.username || '');
+    const [bio, setBio] = useState(userData?.bio || '');
+    const [gender, setGender] = useState(userData?.gender || '');
+    const [interests, setInterests] = useState(userData?.selectedInterests.map(interest => ({ name: interest })) || []);
+    const [image, setImage] = useState(userData?.image || initialImage);
+
+    useEffect(() => {
+        const getUserData = async () => {
+          try {
+            const userDataJson = await AsyncStorage.getItem('@userData');
+            let data = userDataJson != null ? JSON.parse(userDataJson) : null;
+      
+            if (!data) {
+              await AsyncStorage.setItem('@userData', JSON.stringify(defaultUserData));
+              data = defaultUserData;
+            }
+      
+            setUserData(data);
+            // Update state variables after userData is fetched
+            setName(data.name);
+            setEmail(data.email);
+            setUsername(data.username);
+            setBio(data.bio);
+            setGender(data.gender);
+            setInterests(data.selectedInterests.map(interest => ({ name: interest })));
+            setImage(data.image);
+          } catch (e) {
+            console.log('Error reading user data from AsyncStorage:', e);
+          }
+        };
+      
+        getUserData();
+      }, []);
 
     const handleGenderChange = (value) => {
         setGender(value);
         setShowOtherTextInput(value === 'Other');
     };
 
-    const [interests, setInterests] = useState([]);
 
     const addNewInterest = (newInterest) => {
         if (newInterest.trim()) {
@@ -83,6 +133,8 @@ const EditProfileScreen = () => {
                             <TextInputIcon
                                 placeholder="Enter Name"
                                 style={styles.textInput}
+                                value = {name}
+                                onChangeText = {setName}
                             />
                         </View>
                         <View style={styles.inputContainer}>
@@ -92,6 +144,8 @@ const EditProfileScreen = () => {
                             <TextInputIcon
                                 placeholder="Enter a valid email"
                                 style={styles.textInput}
+                                value = {email}
+                                onChangeText = {setEmail}
                             />
                         </View>
                         <View style={styles.inputContainer}>
@@ -102,6 +156,8 @@ const EditProfileScreen = () => {
                                 placeholder="Enter username"
                                 width="60%"
                                 inputLimit={40}
+                                value = {username}
+                                onChangeText = {setUsername}
                             />
                         </View>
 
@@ -111,6 +167,8 @@ const EditProfileScreen = () => {
                         <BioInputField
                             placeholder="Enter Bio"
                             inputLimit={150}
+                            value = {bio}
+                            onChangeText = {setBio}
                         />
                     </View>
                     <View style={SettingsStackStyles.section}>
