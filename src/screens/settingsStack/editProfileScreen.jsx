@@ -41,6 +41,9 @@ const EditProfileScreen = () => {
     const [otherText, setOtherText] = useState(isStandardGenderOption ? '' : userData?.gender);
     const [showOtherTextInput, setShowOtherTextInput] = useState(!isStandardGenderOption);
 
+    // Check if all fields are filled and selected interests are at least 3
+    const isSaveEnabled = name && email && username && bio && (interests.length >= 3);
+
     useEffect(() => {
         const getUserData = async () => {
             try {
@@ -119,7 +122,8 @@ const EditProfileScreen = () => {
                 headerBackVisible={true}
                 headerNextVisible={false}
                 saveVisible={true}
-                onPress={() => handleSave()}
+                isSaveEnabled={isSaveEnabled}
+                onPress={isSaveEnabled ? () => handleSave() : null}
             />
             <ScrollView nestedScrollEnabled={true} contentContainerStyle={{ paddingTop: 20 }}>
                 <View style={SettingsStackStyles.pageContainer}>

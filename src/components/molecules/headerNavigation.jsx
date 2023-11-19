@@ -18,6 +18,7 @@ const HeaderNavigation = ({
     totalSteps,
     title,
     saveVisible = false,
+    isSaveEnabled,
     onNext
     // ... any other props you need
 }) => {
@@ -75,10 +76,9 @@ const HeaderNavigation = ({
                         />
                     )}
                     {saveVisible && (
-                        <TouchableOpacity onPress={onPress}>
-                            <Text style={styles.saveText}>Save</Text>
+                        <TouchableOpacity onPress={onPress} disabled={!isSaveEnabled}>
+                            <Text style={[styles.saveText, !isSaveEnabled && styles.disabledSaveText]}>Save</Text>
                         </TouchableOpacity>
-
                     )}
                 </View>
             </View>
@@ -113,7 +113,10 @@ const styles = StyleSheet.create({
     saveText: {
         fontSize: 16,
         fontWeight: 'bold',
-    }
+    },
+    disabledSaveText: {
+        color: '#cccccc', 
+    },
     // ... any other styles you need
 });
 
