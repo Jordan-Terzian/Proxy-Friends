@@ -20,6 +20,8 @@ const PersonalDetailsScreen = () => {
     const [gender, setGender] = useState('');
     const [otherText, setOtherText] = useState('');
     const [showOtherTextInput, setShowOtherTextInput] = useState(false);
+    const [dateOfBirth, setDateOfBirth] = useState('');
+
 
     const handleGenderChange = (value) => {
         setGender(value);
@@ -33,8 +35,8 @@ const PersonalDetailsScreen = () => {
             <HeaderNavigation
                 title=""
                 nextScreen="CustomiseYourProfile"
-                currentStep={2} 
-                totalSteps={6} 
+                currentStep={2}
+                totalSteps={6}
             />
             <ScrollView nestedScrollEnabled={true}>
                 <View style={RegisterStyles.underHeaderContainer}>
@@ -54,7 +56,11 @@ const PersonalDetailsScreen = () => {
                         <Text style={RegisterStyles.subtitle}>
                             We use this date to suggest matches based on your age.
                         </Text>
-                        <DatePickerField placeholder="dd/mm/yyyy" />
+                        <DatePickerField
+                            placeholder="dd/mm/yyyy"
+                            onConfirm={setDateOfBirth}
+                            showIcon={true}
+                        />
                     </View>
                     <View style={RegisterStyles.section}>
                         <Text style={RegisterStyles.header2}>
@@ -68,7 +74,7 @@ const PersonalDetailsScreen = () => {
                             selectedOption={gender}
                             onOptionChange={handleGenderChange}
                         />
-                        {gender === 'Other' && <TextInputIcon placeholder="Other..."/>}
+                        {gender === 'Other' && <TextInputIcon placeholder="Other..." />}
                     </View>
                 </View>
             </ScrollView>

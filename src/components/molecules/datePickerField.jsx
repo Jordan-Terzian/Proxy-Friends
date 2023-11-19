@@ -49,7 +49,7 @@ const DatePickerField = ({
             { fontSize: 16, color: !date ? "#636363" : "#000000" },
           ]}
         >
-          {(mode === null || mode === "date") && formatDate(date, placeholder)}
+          {(mode === undefined || mode === "date") && formatDate(date, placeholder)}
           {mode === "datetime" && formatDateTime(date, placeholder)}
         </Text>
       </TouchableOpacity>

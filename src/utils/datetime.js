@@ -1,4 +1,4 @@
-export const formatDate = (date) => {
+export const formatDate = (date, placeholder= "dd/mm/yyyy") => {
   if (!date) return placeholder;
   const day = date.getDate();
   const month = date.getMonth() + 1; // January is 0!
