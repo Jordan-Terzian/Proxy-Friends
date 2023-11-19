@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // material community is deprecating socia media icons hence used this
 import createProfileStackStyles from '../styles/profileStackStyles';
@@ -19,29 +20,33 @@ const ProfileScreen = () => {
     email: "ryan@email.com",
     gender: "Male",
     image: "https://placekitten.com/200/200",
+    username: "ryangosling",
     name: "Ryan Gosling",
     selectedInterests: ["Video games", "Movies", "Marvel", "Martial Arts", "Gym", "Politics"],
   };
 
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const userDataJson = await AsyncStorage.getItem('@userData');
-        let data = userDataJson != null ? JSON.parse(userDataJson) : null;
+  useFocusEffect(
+    useCallback(() => {
+      const getUserData = async () => {
+        try {
+          const userDataJson = await AsyncStorage.getItem('@userData');
+          let data = userDataJson != null ? JSON.parse(userDataJson) : null;
 
-        if (!data) {
-          await AsyncStorage.setItem('@userData', JSON.stringify(defaultUserData));
-          data = defaultUserData;
+          if (!data) {
+            // If userData is null, use default data and save it to AsyncStorage
+            data = defaultUserData;
+            await AsyncStorage.setItem('@userData', JSON.stringify(defaultUserData));
+          }
+
+          setUserData(data);
+        } catch (e) {
+          console.log('Error reading user data from AsyncStorage:', e);
         }
+      };
 
-        setUserData(data);
-      } catch (e) {
-        console.log('Error reading user data from AsyncStorage:', e);
-      }
-    };
-
-    getUserData();
-  }, []);
+      getUserData();
+    }, [])
+  );
 
   console.log(userData)
 
