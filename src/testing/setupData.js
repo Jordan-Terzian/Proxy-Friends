@@ -1,10 +1,12 @@
 import { Image } from "react-native";
-import mrBeast from "../assets/users/mr-beast.jpeg";
-import shinobu from "../assets/users/poison-hashira.jpeg";
-import kymu from "../assets/users/water-hashira.jpeg";
-import pewdiepie from "../assets/users/pewdiepie.jpeg";
+import mrBeast from "../assets/users/guy1.jpg";
+import shinobu from "../assets/users/guy2.jpeg";
+import kymu from "../assets/users/taylor.jpeg";
+import pewdiepie from "../assets/users/harry.jpeg";
 import tennis from "../assets/activities/tennis.jpeg";
 import bouldering from "../assets/activities/bouldering.jpeg";
+import trekking from "../assets/activities/trekking.jpeg";
+import surfing from "../assets/activities/surfing.jpeg";
 import { addNewUser } from "../storage/profileStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addAttendeeToActivity, addNewEvent } from "../storage/activityStore";
@@ -78,6 +80,20 @@ export const setupUserAndActivities = async () => {
       startTime: new Date(2022, 2, 7, 7, 30),
       endTime: new Date(2023, 3, 15, 16, 3),
       image: Image.resolveAssetSource(bouldering).uri,
+    },
+    {
+      activity: "Surfing",
+      location: "The great ocean",
+      startTime: new Date(2022, 12, 7, 7, 30),
+      endTime: new Date(2023, 1, 5, 16, 3),
+      image: Image.resolveAssetSource(surfing).uri,
+    },
+    {
+      activity: "Treking",
+      location: "The great mountain",
+      startTime: new Date(2023, 12, 7, 7, 30),
+      endTime: new Date(2023, 12, 15, 16, 3),
+      image: Image.resolveAssetSource(trekking).uri,
     },
   ];
 
