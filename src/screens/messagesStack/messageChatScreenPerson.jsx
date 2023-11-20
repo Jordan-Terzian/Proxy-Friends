@@ -57,6 +57,7 @@ const MessageChatScreenPerson = () => {
                     image={route.params.messageInfo?.image}
                     name={route.params.messageInfo?.name} 
                     onDotPress = {() => setOverlayVisible(true)}
+                    userInfo = {route.params.messageInfo}
                     />
             </View>
             <ScrollView style={styles.messagesContainer}>

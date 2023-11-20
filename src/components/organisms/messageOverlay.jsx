@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     right: 5,
-    top: 150, // Adjust this value to position the overlay right below the three dots icon
+    top: 120, // Adjust this value to position the overlay right below the three dots icon
     backgroundColor: '#DDE2F5',
     borderRadius: 5,
     padding: 10,
