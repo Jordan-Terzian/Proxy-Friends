@@ -1,16 +1,20 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import PeopleScreen from "../screens/homeStack/peopleScreen";
+import HomeScreen from "../screens/homeStack/homeScreen";
 
 const Stack = createStackNavigator();
 
-const PeopleStack = () => {
-    return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="People" component={PeopleScreen} />
-        </Stack.Navigator>
-    );
-}
+const HomeStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        initialParams={{ tab: "People" }}
+      />
+    </Stack.Navigator>
+  );
+};
 
-export default PeopleStack;
+export default HomeStack;
