@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import createMessageStackStyles from '../styles/messageStackStyles';
@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import MessageChatItem from '../../components/molecules/messageChatItem';
 import TextInputIcon from '../../components/molecules/textInput';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 const MessageHomeScreen = () => {
   const MessageStackStyles = createMessageStackStyles();
@@ -42,25 +43,42 @@ const MessageHomeScreen = () => {
       }
     };
 
-    const loadMessagesData = async () => {
-      try {
-        const messagesData = await AsyncStorage.getItem('@Messages');
-        if (messagesData !== null) {
-          setMessages(JSON.parse(messagesData));
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    };
+
 
     saveMessagesData();
-    loadMessagesData();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      const loadMessagesData = async () => {
+        try {
+          const messagesData = await AsyncStorage.getItem('@Messages');
+          if (messagesData !== null) {
+            setMessages(JSON.parse(messagesData));
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      };
+
+      loadMessagesData();
+    }, [])
+  );
 
 
   const filteredMessages = messages.filter(message =>
     message.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const deleteMessage = async (messageToDelete) => {
+    const updatedMessages = messages.filter(message => message !== messageToDelete);
+    setMessages(updatedMessages);
+    try {
+      await AsyncStorage.setItem('@Messages', JSON.stringify(updatedMessages));
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <SafeAreaView style={MessageStackStyles.safeAreaView} edges={['bottom']}>
@@ -76,7 +94,7 @@ const MessageHomeScreen = () => {
       <ScrollView>
         <View style={MessageStackStyles.container}>
           {filteredMessages.map((message, index) => (
-            <MessageChatItem key={index} message={message} />
+            <MessageChatItem key={index} message={message} onDelete={deleteMessage} />
           ))}
         </View>
       </ScrollView>

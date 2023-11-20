@@ -1,10 +1,21 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Swipeable } from 'react-native-gesture-handler';
 
-const MessageChatItem = ({ message }) => {
+const MessageChatItem = ({ message, onDelete }) => {
 
     const navigation = useNavigation();
+
+
+    // Swipeable right action to show delete button
+    const renderRightActions = () => {
+        return (
+            <TouchableOpacity onPress={() => onDelete(message)} style={styles.deleteButton}>
+                <Text style={styles.deleteButtonText}>Delete</Text>
+            </TouchableOpacity>
+        );
+    };
 
 
     const onPress = () => {
@@ -22,17 +33,19 @@ const MessageChatItem = ({ message }) => {
     }
 
     return (
-        <TouchableOpacity style={styles.container} onPress={onPress}>
-            <Image
-                source={{ uri: message?.image }}
-                style={message?.isEvent ? styles.squareImage : styles.roundImage}
-            />
-            <View style={styles.textContainer}>
-                <Text style={styles.name}>{message?.name}</Text>
-                <Text style={styles.message}>{message?.lastMessage}</Text>
-            </View>
-            <Text style={styles.time}>{message?.timeSent}</Text>
-        </TouchableOpacity>
+        <Swipeable renderRightActions={renderRightActions}>
+            <TouchableOpacity style={styles.container} onPress={onPress}>
+                <Image
+                    source={{ uri: message?.image }}
+                    style={message?.isEvent ? styles.squareImage : styles.roundImage}
+                />
+                <View style={styles.textContainer}>
+                    <Text style={styles.name}>{message?.name}</Text>
+                    <Text style={styles.message}>{message?.lastMessage}</Text>
+                </View>
+                <Text style={styles.time}>{message?.timeSent}</Text>
+            </TouchableOpacity>
+        </Swipeable>
     );
 };
 
@@ -73,7 +86,18 @@ const styles = StyleSheet.create({
     time: {
         fontSize: 12,
         color: '#6e6e6e',
-        alignSelf: 'flex-start', // Align self to flex-start to move it to the top
+        alignSelf: 'flex-start',
+    },
+    deleteButton: {
+        backgroundColor: 'red',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 75, 
+        height: '100%',
+    },
+    deleteButtonText: {
+        color: 'white',
+        fontWeight: 'bold',
     },
 });
 

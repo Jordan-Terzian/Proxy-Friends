@@ -5,6 +5,7 @@ import MessageHeader from '../../components/molecules/messageHeader';
 import MessageInput from '../../components/molecules/messageInput';
 import MessageBubble from '../../components/molecules/messageBubble';
 import MessageOverlay from '../../components/organisms/messageOverlay';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 const MessageChatScreenEvent = () => {
@@ -59,15 +60,30 @@ const MessageChatScreenEvent = () => {
     const handleViewAttendees = () => {
         // Logic for blocking
         navigation.navigate('Attendees', {
-            attendees: messages 
+            attendees: messages
         });
         setOverlayVisible(false);
     };
 
-    const handleLeaveEvent = () => {
+    const handleLeaveEvent = async () => {
         // Logic for reporting
         console.log('Leave event');
         setOverlayVisible(false);
+        try {
+            const messagesData = await AsyncStorage.getItem('@Messages');
+            let allMessages = messagesData ? JSON.parse(messagesData) : [];
+
+            // Filter out the event and its related messages
+            allMessages = allMessages.filter(msg => !(msg.isEvent || msg.name === route.params.messageInfo.name));
+
+            // Save updated messages list to AsyncStorage
+            await AsyncStorage.setItem('@Messages', JSON.stringify(allMessages));
+
+            // Go back to the previous screen
+            navigation.goBack();
+        } catch (e) {
+            console.log(e);
+        }
     };
 
 
@@ -80,7 +96,7 @@ const MessageChatScreenEvent = () => {
                 <MessageHeader
                     image={route.params.messageInfo?.image}
                     name={route.params.messageInfo?.name}
-                    isEvent = {true}
+                    isEvent={true}
                     onDotPress={() => setOverlayVisible(true)}
                 />
             </View>
