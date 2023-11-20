@@ -1,12 +1,78 @@
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import createMessageStackStyles from '../styles/messageStackStyles';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import MessageChatItem from '../../components/molecules/messageChatItem';
+import TextInputIcon from '../../components/molecules/textInput';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MessageHomeScreen = () => {
+  const MessageStackStyles = createMessageStackStyles();
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    const defaultMessagesData = [
+      {
+        bio: "Australian Actress",
+        dateOfBirth: "2002-10-19T07:01:54.207Z",
+        gender: "Female",
+        image: "https://people.com/thmb/NwJzLwy5IvwRLgvTFGK_4fvC1SY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x305:1001x307)/Margot-Robbie-011723-2000-f45fe72c86f24029ae2215b399356460.jpg",
+        name: "Margot Robbie",
+        selectedInterests: ["Acting", "Movies", "DC"],
+        isEvent: false,
+        lastMessage: "Hello world",
+        timeSent: "2:22pm"
+      },
+      {
+        name: "IMAX Sydney",
+        isEvent: true,
+        image: "https://static.ffx.io/images/$zoom_0.378%2C$multiply_0.9735%2C$ratio_1.5%2C$width_756%2C$x_0%2C$y_0/t_crop_custom/q_86%2Cf_auto/9b1d1bf943b5a1ba03311fff18158644e348fd4f",
+        lastMessage: "Margot: I Can't wait",
+        timeSent: "1hr"
+      }
+    ];
+
+    const saveMessagesData = async () => {
+      try {
+        await AsyncStorage.setItem('@Messages', JSON.stringify(defaultMessagesData));
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    const loadMessagesData = async () => {
+      try {
+        const messagesData = await AsyncStorage.getItem('@Messages');
+        if (messagesData !== null) {
+          setMessages(JSON.parse(messagesData));
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    saveMessagesData();
+    loadMessagesData();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>This is the Message Home Screen</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={MessageStackStyles.safeAreaView} edges={['bottom']}>
+      <View style={styles.searchBar}>
+        <TextInputIcon
+          icon="magnify"
+          placeholder="Search"
+        />
+      </View>
+
+      <ScrollView>
+        <View style={MessageStackStyles.container}>
+          {messages.map((message, index) => (
+            <MessageChatItem key={index} message={message} />
+          ))}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -19,4 +85,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  searchBar: {
+    marginTop: 60,
+    padding: 20
+  }
 });
