@@ -8,10 +8,12 @@ import BioInputField from '../../components/molecules/textInputMultiLine';
 import ShapedButton from '../../components/atoms/shapedButton';
 
 
-const ReportAProblemScreen = () => {
+const ReportAProblemScreen = ({ route }) => {
 
     const navigation = useNavigation();
     const SettingsStackStyles = createSettingsStackStyles();
+
+    const isUserIssue = route.params?.userIssue ?? false;
 
     return (
         <SafeAreaView style={SettingsStackStyles.safeAreaView} edges={['bottom']}>
@@ -27,10 +29,12 @@ const ReportAProblemScreen = () => {
                             What Happened?
                         </Text>
                         <Text style={SettingsStackStyles.subtitle}>
-                            Enter a description of the issue you've faced while using PROXY Friends
+                            {isUserIssue 
+                                ? "Enter a description of what has happened between you and this user."
+                                : "Enter a description of the issue you've faced while using PROXY Friends"}
                         </Text>
                         <BioInputField
-                            placeholder="Description of the issue"
+                            placeholder={isUserIssue ? "Description" : "Description of the issue"}
                             multiline={true}
                         />
                         <ShapedButton

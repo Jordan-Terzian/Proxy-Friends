@@ -1,9 +1,21 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const MessageChatItem = ({ message }) => {
+
+    const navigation = useNavigation();
+
+
+    const onPress = () => {
+        // Navigate to the chat screen
+        navigation.navigate('MessageChatPerson', {
+            messageInfo: message,
+        });
+    }
+
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <Image 
                 source={{ uri: message?.image }}
                 style={message?.isEvent ? styles.squareImage : styles.roundImage} 
