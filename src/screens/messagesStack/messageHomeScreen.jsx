@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const MessageHomeScreen = () => {
   const MessageStackStyles = createMessageStackStyles();
   const [messages, setMessages] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const defaultMessagesData = [
@@ -56,18 +57,25 @@ const MessageHomeScreen = () => {
     loadMessagesData();
   }, []);
 
+
+  const filteredMessages = messages.filter(message =>
+    message.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <SafeAreaView style={MessageStackStyles.safeAreaView} edges={['bottom']}>
       <View style={styles.searchBar}>
         <TextInputIcon
           icon="magnify"
           placeholder="Search"
+          value={searchQuery}
+          onChangeText={text => setSearchQuery(text)} // Update search query on text change
         />
       </View>
 
       <ScrollView>
         <View style={MessageStackStyles.container}>
-          {messages.map((message, index) => (
+          {filteredMessages.map((message, index) => (
             <MessageChatItem key={index} message={message} />
           ))}
         </View>
