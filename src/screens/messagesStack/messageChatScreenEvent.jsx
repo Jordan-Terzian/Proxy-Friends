@@ -116,30 +116,24 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 60,
         marginBottom: 20
-        // Add styles for header
     },
     messagesContainer: {
         flex: 1,
-        // Add styles for message display area
     },
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        // Add styles for input container
     },
     input: {
         flex: 1,
-        // Add styles for text input
     },
     icon: {
         marginHorizontal: 10,
-        // Add other styles for icons
     },
     messagesContainer: {
         flex: 1,
         paddingHorizontal: 10,
     },
-    // ... other styles
 });
 
 export default MessageChatScreenEvent;
