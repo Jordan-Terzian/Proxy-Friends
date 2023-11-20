@@ -1,25 +1,36 @@
-// MessageHeader.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-const MessageHeader = ({ image, name, onDotPress, userInfo }) => {
+const MessageHeader = ({ image, name, onDotPress, userInfo, isEvent }) => {
     const navigation = useNavigation();
-    const [overlayVisible, setOverlayVisible] = useState(false);
 
-    const onPress = () => {
-        navigation.navigate('ViewUserProfile', { userInfo: userInfo });
-    }
+    const renderProfileImage = () => {
+        const imageComponent = (
+            <Image
+                source={{ uri: image }}
+                style={[styles.profilePic, isEvent ? styles.eventProfilePic : {}]}
+            />
+        );
+
+        if (isEvent) {
+            return imageComponent;
+        }
+
+        return (
+            <TouchableOpacity onPress={() => navigation.navigate('ViewUserProfile', { userInfo: userInfo })}>
+                {imageComponent}
+            </TouchableOpacity>
+        );
+    };
 
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <MaterialCommunityIcons name="chevron-left" size={30} color="white" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={onPress}>
-                <Image source={{ uri: image }} style={styles.profilePic} />
-            </TouchableOpacity>
+            {renderProfileImage()}
             <Text style={styles.name}>{name}</Text>
             <View style={styles.icons}>
                 <TouchableOpacity>
@@ -51,6 +62,9 @@ const styles = StyleSheet.create({
         height: 60,
         borderRadius: 50,
         marginHorizontal: 10,
+    },
+    eventProfilePic: {
+        borderRadius: 5,
     },
     name: {
         flex: 1,

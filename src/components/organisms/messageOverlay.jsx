@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-nati
 
 const { width, height } = Dimensions.get('window'); // Get screen dimensions
 
-const MessageOverlay = ({ isVisible, onClose, name, onBlock, onReport }) => {
+const MessageOverlay = ({ isVisible, onClose, name, onBlock, onReport, onViewAttendees, onLeaveEvent, isEvent }) => {
   if (!isVisible) return null;
 
   // Overlay actions
@@ -18,19 +18,42 @@ const MessageOverlay = ({ isVisible, onClose, name, onBlock, onReport }) => {
     onClose(); // Use onClose prop
   };
 
+  const handleViewAttendees = () => {
+    onViewAttendees();
+    onClose(); // Close overlay after action
+  };
+
+  const handleLeaveEvent = () => {
+    onLeaveEvent();
+    onClose(); // Close overlay after action
+  };
+
   return (
     <>
       <TouchableOpacity 
         style={[styles.transparentCover, { width: width, height: height }]} 
-        onPress={onClose} // Use onClose prop
+        onPress={onClose}
       />
       <View style={styles.container}>
-        <TouchableOpacity style={styles.optionButton} onPress={handleBlock}>
-          <Text style={styles.optionText}>Block {name}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.optionButton} onPress={handleReport}>
-          <Text style={styles.optionText}>Report</Text>
-        </TouchableOpacity>
+        {isEvent ? (
+          <>
+            <TouchableOpacity style={styles.optionButton} onPress={handleViewAttendees}>
+              <Text style={styles.optionText}>View Attendees</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.optionButton} onPress={handleLeaveEvent}>
+              <Text style={styles.optionText}>Leave Event</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <TouchableOpacity style={styles.optionButton} onPress={handleBlock}>
+              <Text style={styles.optionText}>Block {name}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.optionButton} onPress={handleReport}>
+              <Text style={styles.optionText}>Report</Text>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
     </>
   );
