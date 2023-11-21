@@ -7,14 +7,10 @@ npm install
 ```
 
 ## Step 2: Running the app. 
-Run iOS or Android versions of the app
+Run iOS or Android versions of the app, Please run the code on an iPhone 15 Pro
 
 ```bash 
-npm run ios
-```
-_or for android_
-```bash 
-npm run android
+npm ios
 ```
 
 If they don't work, you may need to start metro server by using

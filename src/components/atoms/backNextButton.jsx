@@ -16,12 +16,13 @@ const BackNextButton = ({
 
     const navigation = useNavigation();
 
-    const {theme, setTheme} = useTheme();
+    const {theme, setTheme, setHighContrast} = useTheme();
 
     const handlePress = () => {
         if (direction === 'back') {
             navigation.goBack();
             setTheme('Light')
+            setHighContrast(false)
             return;
         }
         if (direction === 'next') {

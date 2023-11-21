@@ -17,12 +17,11 @@ const colourOptions = ['Dark', 'Light', 'System Default']
 
 const AccessibilityScreen = () => {
 
-    const [highContrast, setHighContrast] = useState(false);
     const toggleHighContrast = () => setHighContrast(previousState => !previousState);
 
     const navigation = useNavigation();
     const [colourMode, setColourMode] = useState('Light');
-    const { theme, setTheme } = useTheme(); 
+    const { theme, setTheme, highContrast, setHighContrast } = useTheme(); 
 
     // Apply the theme styles dynamically
     const SettingsStackStyles = createSettingsStackStyles(theme);
@@ -41,6 +40,13 @@ const AccessibilityScreen = () => {
         },
     }
 
+    const highContrastStyles = {
+        subtitle: {
+            color: highContrast && theme === 'Dark' ? 'white' : (highContrast ? 'black' : (theme === 'Dark' ? 'white' : '#636363')),
+        },
+        // Define other high contrast styles as needed
+      };
+
     const handleColorModeChange = (value) => {
         setColourMode(value);
         setTheme(value); // Update the theme based on selected color mode
@@ -54,7 +60,7 @@ const AccessibilityScreen = () => {
                 headerNextVisible={false}
                 saveVisible={true}
                 isSaveEnabled={true}
-                onPress={() => { navigation.goBack(); setTheme('Light')} }
+                onPress={() => { navigation.goBack(); setTheme('Light'); setHighContrast(false)} }
             />
             <ScrollView nestedScrollEnabled={true} contentContainerStyle={{ paddingTop: 20 }}>
                 <View style={SettingsStackStyles.pageContainer}>
@@ -71,8 +77,8 @@ const AccessibilityScreen = () => {
                                 value={highContrast}
                             />
                         </View>
-                        <Text style={[SettingsStackStyles.subtitle, dynamicStyles.subtitle]}>
-                            Do you require increased contrat on buttons and text?
+                        <Text style={[SettingsStackStyles.subtitle, dynamicStyles.subtitle, highContrastStyles.subtitle]}>
+                            Do you require increased contrast on buttons and text?
                         </Text>
                     </View>
                     <View style={SettingsStackStyles.section}>

@@ -8,8 +8,8 @@ import { useTheme } from '../../context/themeContext';
 
 
 const CheckboxGroup = ({ options, selectedOption, onOptionChange }) => {
-  const { theme } = useTheme();
-  const styles = createStyles(theme);
+  const { theme, highContrast } = useTheme();
+  const styles = createStyles(theme, highContrast);
 
   return (
     <View>
@@ -33,7 +33,7 @@ const CheckboxGroup = ({ options, selectedOption, onOptionChange }) => {
   );
 };
 
-const createStyles = (theme) =>
+const createStyles = (theme, highContrast) =>
   StyleSheet.create({
     checkboxContainer: {
       flexDirection: 'row',
@@ -43,7 +43,7 @@ const createStyles = (theme) =>
       width: 18,
       height: 18,
       borderRadius: 9,
-      backgroundColor: '#DDE2F5',
+      backgroundColor: highContrast === true ? '#648ccc' : '#DDE2F5',
       alignItems: 'center',
       justifyContent: 'center',
       marginRight: 8
