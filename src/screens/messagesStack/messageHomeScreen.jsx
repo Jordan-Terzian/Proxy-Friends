@@ -30,8 +30,8 @@ const MessageHomeScreen = () => {
         name: "IMAX Sydney",
         isEvent: true,
         image: "https://static.ffx.io/images/$zoom_0.378%2C$multiply_0.9735%2C$ratio_1.5%2C$width_756%2C$x_0%2C$y_0/t_crop_custom/q_86%2Cf_auto/9b1d1bf943b5a1ba03311fff18158644e348fd4f",
-        lastMessage: "Margot: I Can't wait",
-        timeSent: "1hr"
+        lastMessage: "Chris: Excited about the event!",
+        timeSent: "Yesterday"
       }
     ];
 

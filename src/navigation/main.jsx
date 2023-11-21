@@ -1,6 +1,5 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Heap from "@heap/react-native-heap";
 import AppStack from "./appStack";
 import AuthStack from "./authStack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,9 +10,6 @@ import ErrorFallbacComponent from "../components/organisms/errorFallback";
 
 const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
-
-// const HeapNavigationContainer =
-//   Heap.withReactNavigationAutotrack(NavigationContainer);
 
 const Main = () => {
   return (

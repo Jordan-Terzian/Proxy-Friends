@@ -6,20 +6,31 @@ import {
   addAttendeeToActivity,
   getAllEventUserIsNotPattendeeOf,
 } from "../../storage/activityStore";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { formatDateRange } from "../../utils/datetime";
 import SwiperDeck from "./swiperDeck";
 import UserContext from "../../context/userContext";
 import LoadingSpinner from "../../components/atoms/loadingSpinner";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const formatAttendees = (attendees) => {
-  return `${attendees.length} ${
-    attendees.length > 1 ? "attendees" : "attendee"
-  }`;
+  return `${attendees.length} ${attendees.length > 1 ? "attendees" : "attendee"
+    }`;
 };
 
 const ActivityScreen = ({ navigation }) => {
   const { loggedInUserId } = useContext(UserContext);
+
+  useEffect(() => {
+    const initializeMessages = async () => {
+      const messagesData = await AsyncStorage.getItem('@Messages');
+      if (!messagesData) {
+        await AsyncStorage.setItem('@Messages', JSON.stringify([])); // Initialize with an empty array
+      }
+    };
+
+    initializeMessages();
+  }, []);
 
   const [activities, setActivities] = useState([]);
 
@@ -103,6 +114,16 @@ const ActivityScreen = ({ navigation }) => {
     ];
   };
 
+  const createMessageFromActivity= (activity) => {
+    return {
+      name: activity.activity,
+      image: activity.image,
+      isEvent: true,
+      timeSent: activity.timeSent,
+      lastMessage: activity.lastMessage
+    };
+  };
+
   const cards = activities.map((activity) => createActivityData(activity));
 
   return (
@@ -110,6 +131,19 @@ const ActivityScreen = ({ navigation }) => {
       cards={cards}
       renderCard={renderCard}
       onAcceptAction={async (cardIndex) => {
+        const newMessage = createMessageFromActivity(activities[cardIndex]);
+      
+        try {
+            let messagesData = await AsyncStorage.getItem('@Messages');
+            const messages = messagesData ? JSON.parse(messagesData) : [];
+      
+            messages.push(newMessage);
+      
+            await AsyncStorage.setItem('@Messages', JSON.stringify(messages));
+        } catch (e) {
+            console.log("Error updating messages:", e);
+        }
+      
         await addAttendeeToActivity(activities[cardIndex].id, loggedInUserId);
       }}
     />

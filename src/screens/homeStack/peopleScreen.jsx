@@ -113,7 +113,6 @@ const PeopleScreen = ({ navigation }) => {
       name: person.name,
       selectedInterests: person.interests,
       isEvent: false,
-      // lastMessage: "New connection", // Example last message, adjust as needed
       timeSent: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       lastMessage: person.lastMessage
     };

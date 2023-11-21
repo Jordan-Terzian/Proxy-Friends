@@ -88,6 +88,11 @@ export const setupUserAndActivities = async () => {
       startTime: new Date(2023, 4, 9, 7, 30),
       endTime: new Date(2023, 11, 6, 16, 3),
       image: Image.resolveAssetSource(tennis).uri,
+      isEvent: true,
+      lastMessage: "Chris: Excited about the event!",
+      timeSent: "Yesterday",
+      host: "Bob Chen",
+      description: "Come play tennis with us!"
     },
     {
       activity: "Bouldering",
@@ -95,6 +100,11 @@ export const setupUserAndActivities = async () => {
       startTime: new Date(2022, 2, 7, 7, 30),
       endTime: new Date(2023, 3, 15, 16, 3),
       image: Image.resolveAssetSource(bouldering).uri,
+      isEvent: true,
+      lastMessage: "Chris: Excited about the event!",
+      timeSent: "Yesterday",
+      host: "Harshil Dogra",
+      description: "Come climb with us!"
     },
     {
       activity: "Surfing",
@@ -102,6 +112,11 @@ export const setupUserAndActivities = async () => {
       startTime: new Date(2022, 12, 7, 7, 30),
       endTime: new Date(2023, 1, 5, 16, 3),
       image: Image.resolveAssetSource(surfing).uri,
+      isEvent: true,
+      lastMessage: "Chris: Excited about the event!",
+      timeSent: "Yesterday",
+      host: "Jordan Terzian",
+      description: "Come surf with us!"
     },
     {
       activity: "Treking",
@@ -109,6 +124,11 @@ export const setupUserAndActivities = async () => {
       startTime: new Date(2023, 12, 7, 7, 30),
       endTime: new Date(2023, 12, 15, 16, 3),
       image: Image.resolveAssetSource(trekking).uri,
+      isEvent: true,
+      lastMessage: "Chris: Excited about the event!",
+      timeSent: "Yesterday",
+      host: "Ryan Reynolds",
+      description: "Come climb the mountain with my group of friends"
     },
   ];
 
