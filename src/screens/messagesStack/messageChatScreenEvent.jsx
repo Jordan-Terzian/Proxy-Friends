@@ -65,20 +65,19 @@ const MessageChatScreenEvent = () => {
         setOverlayVisible(false);
     };
 
-    const handleLeaveEvent = async () => {
-        // Logic for reporting
+    const handleLeaveEvent = async (eventId) => {
         console.log('Leave event');
         setOverlayVisible(false);
         try {
             const messagesData = await AsyncStorage.getItem('@Messages');
             let allMessages = messagesData ? JSON.parse(messagesData) : [];
-
-            // Filter out the event and its related messages
-            allMessages = allMessages.filter(msg => !(msg.isEvent || msg.name === route.params.messageInfo.name));
-
+    
+            // Filter out the specific event and its related messages
+            allMessages = allMessages.filter(msg => msg.id !== eventId);
+    
             // Save updated messages list to AsyncStorage
             await AsyncStorage.setItem('@Messages', JSON.stringify(allMessages));
-
+    
             // Go back to the previous screen
             navigation.goBack();
         } catch (e) {
@@ -118,6 +117,7 @@ const MessageChatScreenEvent = () => {
                 isVisible={overlayVisible}
                 onClose={() => setOverlayVisible(false)}
                 name={route.params.messageInfo?.name}
+                eventId = {route.params.messageInfo?.id}
                 onViewAttendees={handleViewAttendees}
                 onLeaveEvent={handleLeaveEvent}
                 isEvent={true}

@@ -92,7 +92,8 @@ export const setupUserAndActivities = async () => {
       lastMessage: "Chris: Excited about the event!",
       timeSent: "Yesterday",
       host: "Bob Chen",
-      description: "Come play tennis with us!"
+      description: "Come play tennis with us!",
+      id: "2"
     },
     {
       activity: "Bouldering",
@@ -104,7 +105,8 @@ export const setupUserAndActivities = async () => {
       lastMessage: "Chris: Excited about the event!",
       timeSent: "Yesterday",
       host: "Harshil Dogra",
-      description: "Come climb with us!"
+      description: "Come climb with us!",
+      id: "3"
     },
     {
       activity: "Surfing",
@@ -116,7 +118,8 @@ export const setupUserAndActivities = async () => {
       lastMessage: "Chris: Excited about the event!",
       timeSent: "Yesterday",
       host: "Jordan Terzian",
-      description: "Come surf with us!"
+      description: "Come surf with us!",
+      id: "4"
     },
     {
       activity: "Treking",
@@ -128,7 +131,8 @@ export const setupUserAndActivities = async () => {
       lastMessage: "Chris: Excited about the event!",
       timeSent: "Yesterday",
       host: "Ryan Reynolds",
-      description: "Come climb the mountain with my group of friends"
+      description: "Come climb the mountain with my group of friends",
+      id: "5"
     },
   ];
 

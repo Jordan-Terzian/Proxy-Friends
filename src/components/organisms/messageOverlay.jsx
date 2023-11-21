@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-nati
 
 const { width, height } = Dimensions.get('window'); // Get screen dimensions
 
-const MessageOverlay = ({ isVisible, onClose, name, onBlock, onReport, onViewAttendees, onLeaveEvent, isEvent }) => {
+const MessageOverlay = ({ isVisible, onClose, name, onBlock, onReport, onViewAttendees, onLeaveEvent, isEvent, eventId }) => {
   if (!isVisible) return null;
 
   // Overlay actions
@@ -24,7 +24,7 @@ const MessageOverlay = ({ isVisible, onClose, name, onBlock, onReport, onViewAtt
   };
 
   const handleLeaveEvent = () => {
-    onLeaveEvent();
+    onLeaveEvent(eventId);
     onClose(); // Close overlay after action
   };
 
