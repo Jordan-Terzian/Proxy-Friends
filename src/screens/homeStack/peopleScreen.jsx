@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Text, View, Image } from "react-native";
 import ImageCard from "../../components/organisms/imageCard";
 import Details from "./details";
@@ -8,9 +9,23 @@ import UserContext from "../../context/userContext";
 import { addMatchUser, getUnmatchedUsers } from "../../storage/profileStore";
 import SwiperDeck from "./swiperDeck";
 import LoadingSpinner from "../../components/atoms/loadingSpinner";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PeopleScreen = ({ navigation }) => {
   const { loggedInUserId } = useContext(UserContext);
+
+
+
+  useEffect(() => {
+    const initializeMessages = async () => {
+      const messagesData = await AsyncStorage.getItem('@Messages');
+      if (!messagesData) {
+        await AsyncStorage.setItem('@Messages', JSON.stringify([])); // Initialize with an empty array
+      }
+    };
+
+    initializeMessages();
+  }, []);
 
   const [profiles, setProfiles] = useState([]);
 
@@ -29,7 +44,6 @@ const PeopleScreen = ({ navigation }) => {
   }
 
   if (profiles.length === 0) {
-    // TODO: Decide what this case looks like
     return (
       <View>
         <Text>There is no people</Text>
@@ -90,6 +104,21 @@ const PeopleScreen = ({ navigation }) => {
     ];
   };
 
+  const createMessageFromPerson = (person) => {
+    return {
+      bio: person.bio,
+      dateOfBirth: person.dateOfBirth,
+      gender: person.gender,
+      image: person.profileImage,
+      name: person.name,
+      selectedInterests: person.interests,
+      isEvent: false,
+      // lastMessage: "New connection", // Example last message, adjust as needed
+      timeSent: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      lastMessage: person.lastMessage
+    };
+  };
+
   const cards = profiles.map((profile) => createPersonDetails(profile));
 
   return (
@@ -97,6 +126,19 @@ const PeopleScreen = ({ navigation }) => {
       cards={cards}
       renderCard={renderCard}
       onAcceptAction={async (cardIndex) => {
+        const newMessage = createMessageFromPerson(profiles[cardIndex]);
+      
+        try {
+            let messagesData = await AsyncStorage.getItem('@Messages');
+            const messages = messagesData ? JSON.parse(messagesData) : [];
+      
+            messages.push(newMessage);
+      
+            await AsyncStorage.setItem('@Messages', JSON.stringify(messages));
+        } catch (e) {
+            console.log("Error updating messages:", e);
+        }
+      
         await addMatchUser(loggedInUserId, profiles[cardIndex].id);
       }}
     />

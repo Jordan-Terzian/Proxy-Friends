@@ -19,8 +19,13 @@ export const setupUserAndActivities = async () => {
       age: 11,
       gender: "Male",
       notes: "Some very short note",
-      interests: ["Youtube"],
+      interests: ["Youtube", "Gaming", "Rock climbing"],
       profileImage: Image.resolveAssetSource(mrBeast).uri,
+      dateOfBirth: "2022-10-19T07:01:54.207Z",
+      bio: "God tier youtuber",
+      lastMessage: "Hey great to match",
+      isEvent: false,
+
     },
     {
       name: "Shinobu",
@@ -29,15 +34,24 @@ export const setupUserAndActivities = async () => {
       notes:
         "Some very longlonglong longlonglong longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong note",
       profileImage: Image.resolveAssetSource(shinobu).uri,
+      interests: ["Sleeping", "Water", "Marvel"],
+      dateOfBirth: "2007-10-19T07:01:54.207Z",
+      bio: "God tier demon slayer",
+      lastMessage: "Hello great to match with you",
+      isEvent: false,
     },
     {
-      name: "Kymu",
-      age: 6,
+      name: "Taylor Swift",
+      age: 23,
       gender: "Transgender",
       notes:
         "Some very medium lengh note that is a bout a few lines long hohohohohoho",
-      interests: ["Sleeping", "Demon Slaying", "Water", "Rock climbing"],
+      interests: ["Singing", "Flying", "Writing"],
       profileImage: Image.resolveAssetSource(kymu).uri,
+      dateOfBirth: "2000-10-19T07:01:54.207Z",
+      bio: "I'm making so much money singing",
+      lastMessage: "Hiiii :))",
+      isEvent: false,
     },
     {
       name: "Pewdiepie",
@@ -53,11 +67,12 @@ export const setupUserAndActivities = async () => {
         "Swimming",
         "Eating",
         "Cooking",
-        "Flying",
-        "Singing",
-        "Tennis",
       ],
       profileImage: Image.resolveAssetSource(pewdiepie).uri,
+      dateOfBirth: "1987-10-19T07:01:54.207Z",
+      bio: "I'm making so much money gaming",
+      lastMessage: "What up gamers",
+      isEvent: false,
     },
   ];
 

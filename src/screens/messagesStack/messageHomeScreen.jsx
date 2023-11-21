@@ -35,17 +35,24 @@ const MessageHomeScreen = () => {
       }
     ];
 
-    const saveMessagesData = async () => {
+    const initializeMessages = async () => {
       try {
-        await AsyncStorage.setItem('@Messages', JSON.stringify(defaultMessagesData));
+        let messagesData = await AsyncStorage.getItem('@Messages');
+        let existingMessages = messagesData ? JSON.parse(messagesData) : [];
+  
+        // Combine existing messages with default messages, avoiding duplicates
+        let mergedMessages = [...defaultMessagesData, ...existingMessages.filter(
+          (m) => !defaultMessagesData.some((dm) => dm.name === m.name)
+        )];
+  
+        await AsyncStorage.setItem('@Messages', JSON.stringify(mergedMessages));
+        setMessages(mergedMessages);
       } catch (e) {
         console.log(e);
       }
     };
-
-
-
-    saveMessagesData();
+  
+    initializeMessages();
   }, []);
 
   useFocusEffect(
@@ -56,6 +63,7 @@ const MessageHomeScreen = () => {
           if (messagesData !== null) {
             setMessages(JSON.parse(messagesData));
           }
+          console.log(messagesData);
         } catch (e) {
           console.log(e);
         }
