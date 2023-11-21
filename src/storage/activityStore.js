@@ -53,17 +53,17 @@ export const addNewEvent = async (activityInfo, host) => {
   }
 };
 
-export const addAttendeeToActivity = async (activityId, newAttendee) => {
-  const activityInfo = await getEvent(activityId);
-  activityInfo.attendees.push(newAttendee);
-  try {
-    await AsyncStorage.setItem(activityId, JSON.stringify(activityInfo));
-    return activityId;
-  } catch (error) {
-    console.log("ERROR addAttendeeToActivity:", error);
-    throw error;
-  }
-};
+// export const addAttendeeToActivity = async (activityId, newAttendee) => {
+//   const activityInfo = await getEvent(activityId);
+//   activityInfo.attendees.push(newAttendee);
+//   try {
+//     await AsyncStorage.setItem(activityId, JSON.stringify(activityInfo));
+//     return activityId;
+//   } catch (error) {
+//     console.log("ERROR addAttendeeToActivity:", error);
+//     throw error;
+//   }
+// };
 
 export const getAllEventUserIsNotPattendeeOf = async (userName) => {
   try {

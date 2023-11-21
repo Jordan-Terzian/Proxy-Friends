@@ -84,33 +84,6 @@ export const getUnmatchedUsers = async (loggedInUserId) => {
   }
 };
 
-export const addMatchUser = async (loggedInUserId, newMatchUserId) => {
-  try {
-    const loggedInUserProfile = await getUserProfile(loggedInUserId);
-
-    if (!loggedInUserProfile) {
-      return null; // Or handle the error as needed
-    }
-
-    if (!loggedInUserProfile.matchedUsers) {
-      loggedInUserProfile.matchedUsers = []; // Initialize if undefined
-    }
-
-    loggedInUserProfile.matchedUsers.push(newMatchUserId);
-
-    await AsyncStorage.setItem(
-      loggedInUserId,
-      JSON.stringify(loggedInUserProfile)
-    );
-
-    return loggedInUserId;
-  } catch (error) {
-    console.error("ERROR addMatchUser:", error);
-    throw error;
-  }
-};
-
-
 
 // export const addMatchUser = async (loggedInUserId, newMatchUserId) => {
 //   const loggedInUserProfile = await getUserProfile(loggedInUserId);

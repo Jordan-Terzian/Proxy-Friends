@@ -138,7 +138,6 @@ const PeopleScreen = ({ navigation }) => {
             console.log("Error updating messages:", e);
         }
       
-        await addMatchUser(loggedInUserId, profiles[cardIndex].id);
       }}
     />
   );

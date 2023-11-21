@@ -143,8 +143,6 @@ const ActivityScreen = ({ navigation }) => {
         } catch (e) {
             console.log("Error updating messages:", e);
         }
-      
-        await addAttendeeToActivity(activities[cardIndex].id, loggedInUserId);
       }}
     />
   );
