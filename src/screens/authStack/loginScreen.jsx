@@ -9,23 +9,13 @@ import Metrics from "../../constants/metrics";
 import ShapedButton from "../../components/atoms/shapedButton";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useState } from "react";
-import UserContext from "../../context/userContext";
-import {
-  addNewUser,
-  profileKeyPrefix,
-  setUpLogInUser,
-} from "../../storage/profileStore";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
 
   const [userId, setUserId] = useState("");
-  const { updateLoggedInuser } = useContext(UserContext);
 
   const onLoginSuccess = async () => {
-    // TODO: Remove this adding of new user as logged in user should already have a profile stored locally
-    const loggedInUserId = await setUpLogInUser(userId);
-    updateLoggedInuser(loggedInUserId);
     navigation.navigate("AppStack");
   };
 

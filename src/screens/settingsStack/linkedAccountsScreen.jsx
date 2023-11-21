@@ -26,6 +26,7 @@ const LinkedAccountsScreen = () => {
                 headerBackVisible={true}
                 headerNextVisible={false}
                 saveVisible={true}
+                isSaveEnabled={true}
                 onPress={() => navigation.goBack()}
             />
             <ScrollView nestedScrollEnabled={true} contentContainerStyle={{ paddingTop: 20 }}>

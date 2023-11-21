@@ -49,7 +49,7 @@ const SettingsHomeScreen = () => {
                     <SettingsItem
                         iconName="delete"
                         text="Delete Account"
-                        nextScreen="onboarding"
+                        nextScreen="Onboarding"
                     />
 
 

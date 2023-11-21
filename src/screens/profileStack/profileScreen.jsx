@@ -22,7 +22,7 @@ const ProfileScreen = () => {
     dateOfBirth: "2002-10-19T07:01:54.207Z",
     email: "ryan@email.com",
     gender: "Male",
-    image: "https://placekitten.com/200/200",
+    image: "https://i.insider.com/64a325b16075be0019c28e16?width=700",
     username: "ryangosling",
     name: "Ryan Gosling",
     selectedInterests: ["Video games", "Movies", "Marvel", "Martial Arts", "Gym", "Politics"],
@@ -65,7 +65,7 @@ const ProfileScreen = () => {
     {
       title: 'Bouldering',
       date: '17/03/2023 7am-9am',
-      imageUri: { uri: 'https://placekitten.com/100/100' },
+      imageUri: { uri: 'https://static01.nyt.com/images/2022/05/03/well/22well-bouldering1/22well-bouldering1-mediumSquareAt3X.jpg' },
       location: 'Gosford',
       attendees: "7",
       organizer: "Margot Robbie"
@@ -73,7 +73,7 @@ const ProfileScreen = () => {
     {
       title: 'Skydiving',
       date: '12/03/2023 2pm-3pm',
-      imageUri: { uri: 'https://placekitten.com/101/101' },
+      imageUri: { uri: 'https://cdn2.hubspot.net/hubfs/351592/IMG_8804.jpg' },
       location: 'Sydney',
       attendees: "7",
       organizer: "Chris Evans"
