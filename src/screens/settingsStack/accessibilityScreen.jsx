@@ -54,7 +54,7 @@ const AccessibilityScreen = () => {
                 headerNextVisible={false}
                 saveVisible={true}
                 isSaveEnabled={true}
-                onPress={() => navigation.goBack()}
+                onPress={() => { navigation.goBack(); setTheme('Light')} }
             />
             <ScrollView nestedScrollEnabled={true} contentContainerStyle={{ paddingTop: 20 }}>
                 <View style={SettingsStackStyles.pageContainer}>
