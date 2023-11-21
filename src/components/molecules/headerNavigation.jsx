@@ -68,7 +68,7 @@ const HeaderNavigation = ({
                             labelVisible={true}
                             onPressNext={isNextEnabled ? onNext : null}
                             isDisabled={!isNextEnabled}
-                        // ... any other props you need
+        
                         />
                     )}
                     {newIconButtonVisible && (
@@ -76,7 +76,7 @@ const HeaderNavigation = ({
                             icon={iconName}
                             onPress={onPress}
                             size={24}
-                        // ... any other props you need
+            
                         />
                     )}
                     {saveVisible && (
@@ -98,7 +98,7 @@ const createStyles = (theme) =>
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            height: 30, // Adjust the height as necessary
+            height: 30, 
         },
         sideContainer: {
             width: '15%', // Allocate 15% space for side buttons

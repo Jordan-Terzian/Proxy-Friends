@@ -104,7 +104,6 @@ const AccessibilityScreen = () => {
 
 export default AccessibilityScreen;
 
-// Add this style for the header with the switch
 const styles = StyleSheet.create({
     headerWithSwitch: {
         flexDirection: 'row',
