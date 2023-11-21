@@ -100,6 +100,7 @@ const PersonalDetailsScreen = ({ route }) => {
                             placeholder="dd/mm/yyyy"
                             onConfirm={handleDateOfBirthConfirm}
                             showIcon={true}
+                            selectedDate={dateOfBirth}
                         />
                     </View>
                     <View style={RegisterStyles.section}>

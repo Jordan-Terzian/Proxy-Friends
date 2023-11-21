@@ -15,23 +15,32 @@ const DatePickerField = ({
   showIcon,
   mode,
   onConfirm,
+  selectedDate // New prop for the date, used only in datetime mode
 }) => {
   const viewStyles = createInputPillStyle();
 
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(null); // Internal state for modes other than datetime
   const { value: visible, setFalse: hide, setTrue: unhide } = UseToggle(false);
 
   const handleConfirm = (selectedDate) => {
     hide();
-    setDate(selectedDate);
-    if (onConfirm) {
-      onConfirm(selectedDate);
+    if (mode === "datetime") {
+      if (onConfirm) {
+        onConfirm(selectedDate);
+      }
+    } else {
+      setDate(selectedDate);
+      if (onConfirm) {
+        onConfirm(selectedDate);
+      }
     }
   };
 
   const handleShowPicker = () => {
     unhide();
   };
+
+  const displayDate = mode === "datetime" ? selectedDate : date;
 
   return (
     <>
@@ -46,11 +55,11 @@ const DatePickerField = ({
         <Text
           style={[
             styles.dateFieldText,
-            { fontSize: 16, color: !date ? "#636363" : "#000000" },
+            { fontSize: 16, color: !displayDate ? "#636363" : "#000000" },
           ]}
         >
-          {(mode === undefined || mode === "date") && formatDate(date, placeholder)}
-          {mode === "datetime" && formatDateTime(date, placeholder)}
+          {(mode === undefined || mode === "date") && formatDate(displayDate, placeholder)}
+          {mode === "datetime" && formatDateTime(displayDate, placeholder)}
         </Text>
       </TouchableOpacity>
       <TimeDateModal
@@ -62,6 +71,7 @@ const DatePickerField = ({
     </>
   );
 };
+
 
 const styles = StyleSheet.create({
   dateFieldIcon: {

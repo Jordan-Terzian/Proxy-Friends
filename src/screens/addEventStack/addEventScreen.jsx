@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { SvgXml } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -14,6 +14,8 @@ import UseToggle from "../../utils/useToggle";
 import ImageButton from "../../components/atoms/imageButton";
 import UserContext from "../../context/userContext";
 import TopBar from "../../components/molecules/topBar";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 const RoundedRectWithSvg = () => {
   const calendarSvg = `<svg width="77" height="80" viewBox="0 0 77 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,29 +38,66 @@ const AddEventScreen = ({ navigation }) => {
   const [endTime, setEndTime] = useState(null);
   const [description, setDescription] = useState(null);
   const [image, setImage] = useState(null);
-  const { value: showImageUploader, toggleValue: setShowImageUploader } =
-    UseToggle();
+  const { value: showImageUploader, toggleValue: setShowImageUploader } = UseToggle();
+  const [isFormComplete, setIsFormComplete] = useState(false);
 
-  const { loggedInUserId } = useContext(UserContext);
+
+  useEffect(() => {
+    const initializeMessages = async () => {
+      const messagesData = await AsyncStorage.getItem('@Messages');
+      if (!messagesData) {
+        await AsyncStorage.setItem('@Messages', JSON.stringify([])); // Initialize with an empty array
+      }
+    };
+
+    initializeMessages();
+
+
+  }, []);
+
+  useEffect(() => {
+    setIsFormComplete(
+      activity && location && startTime && endTime && description && image
+    );
+  }, [activity, location, startTime, endTime, description, image]);
+
+  const createMessageFromActivity = () => {
+    const eventId = (Math.floor(Math.random() * (100 - 9 + 1)) + 9).toString();
+    return {
+      name: activity,
+      image: image,
+      lastMessage: "Chris: Excited about the event!",
+      timeSent: "Yesterday",
+      isEvent: true,
+      eventId: eventId
+    }
+  };
+  
+  const handleCancel = () => {
+    setActivity(null);
+    setLocation(null);
+    setStartTime(null);
+    setEndTime(null);
+    setDescription(null);
+    setImage(null);
+    navigation.goBack();
+  };
+
 
   const handlePost = async () => {
-    const activityId = await addNewEvent(
-      {
-        activity,
-        location,
-        startTime,
-        endTime,
-        description,
-        image,
-      },
-      loggedInUserId
-    );
+    const newMessage = createMessageFromActivity();
 
-    // TODO: This should navigate to message screen of the the relevant activity instead.
-    navigation.navigate("HomeScreen", {
-      tab: "Activities",
-      activityId,
-    });
+    try {
+      let messagesData = await AsyncStorage.getItem('@Messages');
+      const messages = messagesData ? JSON.parse(messagesData) : [];
+
+      messages.push(newMessage);
+
+      await AsyncStorage.setItem('@Messages', JSON.stringify(messages));
+    } catch (e) {
+      console.log("Error updating messages:", e);
+    }
+    navigation.navigate('Messages')
   };
 
   return (
@@ -67,7 +106,9 @@ const AddEventScreen = ({ navigation }) => {
         title="Make Event"
         backLabel="Cancel"
         nextLabel="Post"
-        handlePost={handlePost}
+        handlePost={isFormComplete ? handlePost : null} // Disable handlePost if form is not complete
+        disablePost={!isFormComplete}
+        handleCancel={handleCancel}
       />
       <View style={styles.eventFormContainer}>
         <Text style={styles.eventTitle}>Event Picture</Text>
@@ -129,6 +170,7 @@ const AddEventScreen = ({ navigation }) => {
             showIcon={true}
             mode="datetime"
             onConfirm={setStartTime}
+            selectedDate={startTime}
           />
         </View>
         <View style={[styles.activityFormInput]}>
@@ -139,6 +181,7 @@ const AddEventScreen = ({ navigation }) => {
             showIcon={true}
             mode="datetime"
             onConfirm={setEndTime}
+            selectedDate={endTime}
           />
         </View>
         <Text style={[styles.activityFormText, { paddingBottom: 10 }]}>
