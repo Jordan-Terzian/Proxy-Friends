@@ -3,6 +3,10 @@ import { v4 as uuidv4 } from "uuid";
 import { Image } from "react-native";
 import defaultProfile from "../assets/images/defaultProfile.png";
 
+
+
+// WRITTEN BY ANNIE 
+
 /**
 interface UserProfile {
     id: str,
@@ -81,18 +85,46 @@ export const getUnmatchedUsers = async (loggedInUserId) => {
 };
 
 export const addMatchUser = async (loggedInUserId, newMatchUserId) => {
-  const loggedInUserProfile = await getUserProfile(loggedInUserId);
-  console.log(loggedInUserId, newMatchUserId);
-  console.log(loggedInUserProfile);
-  loggedInUserProfile.matchedUsers.push(newMatchUserId);
   try {
+    const loggedInUserProfile = await getUserProfile(loggedInUserId);
+
+    if (!loggedInUserProfile) {
+      return null; // Or handle the error as needed
+    }
+
+    if (!loggedInUserProfile.matchedUsers) {
+      loggedInUserProfile.matchedUsers = []; // Initialize if undefined
+    }
+
+    loggedInUserProfile.matchedUsers.push(newMatchUserId);
+
     await AsyncStorage.setItem(
       loggedInUserId,
       JSON.stringify(loggedInUserProfile)
     );
+
     return loggedInUserId;
   } catch (error) {
-    console.log("ERROR addMatchUser:", error);
+    console.error("ERROR addMatchUser:", error);
     throw error;
   }
 };
+
+
+
+// export const addMatchUser = async (loggedInUserId, newMatchUserId) => {
+//   const loggedInUserProfile = await getUserProfile(loggedInUserId);
+//   console.log(loggedInUserId, newMatchUserId);
+//   console.log(loggedInUserProfile);
+//   loggedInUserProfile.matchedUsers.push(newMatchUserId);
+//   try {
+//     await AsyncStorage.setItem(
+//       loggedInUserId,
+//       JSON.stringify(loggedInUserProfile)
+//     );
+//     return loggedInUserId;
+//   } catch (error) {
+//     console.log("ERROR addMatchUser:", error);
+//     throw error;
+//   }
+// };
