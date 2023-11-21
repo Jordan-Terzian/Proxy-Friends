@@ -1,17 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-const PastEvent = ({ event }) => {
-  const handlePress = () => {
-    console.log(`Event: ${event.title}`);
-  };
-
+const PastEvent = ({ event, onPress }) => {
+  
   return (
-    <TouchableOpacity onPress={handlePress} style={styles.card}>
-      <Image
-        source={event.imageUri}
-        style={styles.image}
-      />
+    <TouchableOpacity onPress={onPress} style={styles.card}> 
+      <Image source={event.imageUri} style={styles.image} />
       <Text style={styles.title}>{event.title}</Text>
       <Text style={styles.date}>{event.date}</Text>
     </TouchableOpacity>

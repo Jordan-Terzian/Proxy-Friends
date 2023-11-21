@@ -10,9 +10,12 @@ import PastEvent from '../../components/molecules/pastEvent';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import calculateAge from '../../utils/calculateAge';
+import EventModal from '../../components/organisms/pastEventModal';
 
 const ProfileScreen = () => {
   const [userData, setUserData] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState({});
 
   const defaultUserData = {
     bio: "Actor and Male model. I was in barbie, that was pretty cool",
@@ -23,6 +26,11 @@ const ProfileScreen = () => {
     username: "ryangosling",
     name: "Ryan Gosling",
     selectedInterests: ["Video games", "Movies", "Marvel", "Martial Arts", "Gym", "Politics"],
+  };
+
+  const handleEventPress = (event) => {
+    setSelectedEvent(event);
+    setIsModalVisible(true);
   };
 
   useFocusEffect(
@@ -56,13 +64,19 @@ const ProfileScreen = () => {
   const pastEventsData = [
     {
       title: 'Bouldering',
-      date: '17/03/2023',
-      imageUri: { uri: 'https://placekitten.com/100/100' } // Placeholder image
+      date: '17/03/2023 7am-9am',
+      imageUri: { uri: 'https://placekitten.com/100/100' },
+      location: 'Gosford',
+      attendees: "7",
+      organizer: "Margot Robbie"
     },
     {
       title: 'Skydiving',
-      date: '12/03/2023',
-      imageUri: { uri: 'https://placekitten.com/101/101' }
+      date: '12/03/2023 2pm-3pm',
+      imageUri: { uri: 'https://placekitten.com/101/101' },
+      location: 'Sydney',
+      attendees: "7",
+      organizer: "Chris Evans"
     },
   ];
 
@@ -111,12 +125,17 @@ const ProfileScreen = () => {
             <Text style={ProfileStackStyles.header2}>Past Events</Text>
             <View style={ProfileStackStyles.eventsGrid}>
               {pastEventsData.map((event, index) => (
-                <PastEvent key={index} event={event} />
+                <PastEvent key={index} event={event} onPress={() => handleEventPress(event)} />
               ))}
             </View>
           </View>
         </View>
       </ScrollView>
+      <EventModal
+        isVisible={isModalVisible}
+        event={selectedEvent}
+        onClose={() => setIsModalVisible(false)}
+      />
     </SafeAreaView>
   );
 };
