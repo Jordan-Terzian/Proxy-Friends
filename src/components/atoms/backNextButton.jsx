@@ -4,19 +4,24 @@ import { StyleSheet, View } from 'react-native';
 
 import { HeaderBackButton } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '../../context/themeContext';
 
 const BackNextButton = ({
     direction = 'back',
     nextScreen,
     onPressNext,
+    isDisabled,
     ...props
 }) => {
 
     const navigation = useNavigation();
 
+    const {theme, setTheme} = useTheme();
+
     const handlePress = () => {
         if (direction === 'back') {
             navigation.goBack();
+            setTheme('Light')
             return;
         }
         if (direction === 'next') {
@@ -24,14 +29,20 @@ const BackNextButton = ({
         }
     }
 
+    const tintColor = isDisabled ? '#cccccc' : (theme === 'Dark' ? 'white' : 'black');
+
     return (
         <View style={direction === 'next' ? styles.mirrorFlip : {}}>
             <HeaderBackButton
                 testID="back-button"
                 onPress={handlePress}
-                disabled={props.isDisabled}  // Add this line
-                labelStyle={[direction === 'next' ? styles.mirrorFlip : {}, props.isDisabled ? styles.disabled : {}]}  // Add styles for disabled state
-                tintColor={props.isDisabled ? '#cccccc' : 'black'}  // Change color if disabled
+                disabled={isDisabled}
+                labelStyle={[
+                    direction === 'next' ? styles.mirrorFlip : {},
+                    isDisabled ? styles.disabled : {},
+                    theme === 'Dark' && !isDisabled ? styles.whiteColor : {} // Only apply white color if dark mode is enabled and button is not disabled
+                ]}
+                tintColor={tintColor} 
                 {...props}
             />
         </View>
@@ -44,6 +55,9 @@ const styles = StyleSheet.create({
     },
     disabled: {
         color: '#cccccc', // Style for disabled state
+    },
+    whiteColor: {
+        color: 'white', // Add this for white text color
     },
 });
 

@@ -7,10 +7,12 @@ import MessagesStack from "./messagesStack";
 import ProfileStack from "./profileStack";
 import AddEventScreen from "../screens/addEventStack/addEventScreen";
 import AddEventStack from "./addEventStack";
+import { useTheme } from "../context/themeContext";
 
 const Tab = createBottomTabNavigator();
 
 const AppStack = () => {
+  const { theme } = useTheme(); 
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -36,11 +38,11 @@ const AppStack = () => {
         },
         headerShown: false,
         tabBarActiveTintColor: "#5495FF",
-        tabBarInactiveTintColor: "#535353",
+        tabBarInactiveTintColor: theme === 'Dark' ? '#ccc' : "#535353",
         tabBarStyle: {
-          backgroundColor: "white",
-          borderTopWidth: 1, // Set the border top width
-          borderTopColor: "#D6D2D1", // Set the border top color
+          backgroundColor: theme === 'Dark' ? '#191414' : 'white', // Use the theme to set background color
+          borderTopWidth: 1,
+          borderTopColor: theme === 'Dark' ? '#333333' : '#D6D2D1',
         },
       })}
     >

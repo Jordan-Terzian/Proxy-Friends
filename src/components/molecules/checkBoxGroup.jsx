@@ -3,11 +3,13 @@ import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 
 import Metrics from '../../constants/metrics';
 
+import { useTheme } from '../../context/themeContext';
+
 
 
 const CheckboxGroup = ({ options, selectedOption, onOptionChange }) => {
-
-  const styles = createStyles();
+  const { theme } = useTheme();
+  const styles = createStyles(theme);
 
   return (
     <View>
@@ -31,7 +33,7 @@ const CheckboxGroup = ({ options, selectedOption, onOptionChange }) => {
   );
 };
 
-const createStyles = () =>
+const createStyles = (theme) =>
   StyleSheet.create({
     checkboxContainer: {
       flexDirection: 'row',
@@ -60,7 +62,7 @@ const createStyles = () =>
     text: {
       fontSize: 17,
       lineHeight: 20,
-      color: 'black',
+      color: theme ==='Dark' ? 'white' : 'black',
     }
   });
 
