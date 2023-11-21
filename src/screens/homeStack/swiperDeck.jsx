@@ -46,22 +46,19 @@ const SwiperDeck = ({ cards, renderCard, onAcceptAction }) => {
               await onAcceptAction(cardIndex);
             }
           }}
-          ref={(ref) => (this.swiperRef = ref)}
+          ref={swiperRef}
         />
       </View>
       <View style={styles.actionsRowContainer}>
         <ActionsRow
           rejectLabel="Discard"
+          swiperRef={swiperRef}
+          onAcceptAction={onAcceptAction}
           onRejectPress={() => {
-            this.swiperRef.swipeLeft();
+            swiperRef.current?.swipeLeft();
           }}
+          cardIndex={cardIndex}
           acceptLabel="Seek Match"
-          onAcceptPress={async () => {
-            if (cardIndex < cards.length) {
-              await onAcceptAction(cardIndex);
-            }
-            this.swiperRef.swipeRight();
-          }}
         />
       </View>
     </>

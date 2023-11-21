@@ -8,7 +8,7 @@ const ActionsRow = ({
   rejectLabel,
   onRejectPress,
   acceptLabel,
-  onAcceptPress,
+  swiperRef,
 }) => {
   return (
     <View style={styles.container}>
@@ -21,7 +21,9 @@ const ActionsRow = ({
       />
       <CircularButton
         label={acceptLabel}
-        onPress={onAcceptPress}
+        onPress={() => {
+          swiperRef.current?.swipeRight();
+        }}
         image={Assets.images.greenTick}
         style={styles.botton}
         labelPosition="bottom"
