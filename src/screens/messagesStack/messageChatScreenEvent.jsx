@@ -31,7 +31,7 @@ const MessageChatScreenEvent = () => {
             bio: "Australian Actor",
             dateOfBirth: "1983-08-11T07:01:54.207Z",
             gender: "Male",
-            image: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Chris_Hemsworth_by_Gage_Skidmore_2_%28cropped%29.jpg",
+            image: "https://hips.hearstapps.com/hmg-prod/images/chris-hemsworth-poses-during-a-photo-call-for-thor-ragnarok-on-october-15-2017-in-sydney-australia-photo-by-mark-metcalfe_getty-images-for-disney-square.jpg",
             selectedInterests: ["Acting", "Fitness", "Movies"],
             isEvent: false,
             lastMessage: "Excited about the event!",

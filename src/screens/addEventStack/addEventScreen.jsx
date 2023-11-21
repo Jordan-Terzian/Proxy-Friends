@@ -69,7 +69,7 @@ const AddEventScreen = ({ navigation }) => {
       lastMessage: "Chris: Excited about the event!",
       timeSent: "Yesterday",
       isEvent: true,
-      eventId: eventId
+      id: eventId
     }
   };
   
@@ -97,6 +97,12 @@ const AddEventScreen = ({ navigation }) => {
     } catch (e) {
       console.log("Error updating messages:", e);
     }
+    setActivity(null);
+    setLocation(null);
+    setStartTime(null);
+    setEndTime(null);
+    setDescription(null);
+    setImage(null);
     navigation.navigate('Messages')
   };
 

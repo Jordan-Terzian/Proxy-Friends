@@ -10,23 +10,37 @@ import PastEvent from '../../components/molecules/pastEvent';
 import { useNavigation } from '@react-navigation/native';
 import MessageOverlay from '../../components/organisms/messageOverlay';
 import calculateAge from '../../utils/calculateAge';
+import EventModal from '../../components/organisms/pastEventModal';
 
 const ViewUserProfileScreen = ({ route }) => {
 
     const navigation = useNavigation();
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState({});
 
     const userData = route.params.userInfo;
+
+    const handleEventPress = (event) => {
+        setSelectedEvent(event);
+        setIsModalVisible(true);
+    };
 
     const pastEventsData = [
         {
             title: 'Bouldering',
-            date: '17/03/2023',
-            imageUri: { uri: 'https://placekitten.com/100/100' } // Placeholder image
+            date: '17/03/2023 7am-9am',
+            imageUri: { uri: 'https://static01.nyt.com/images/2022/05/03/well/22well-bouldering1/22well-bouldering1-mediumSquareAt3X.jpg' },
+            location: 'Gosford',
+            attendees: "7",
+            organizer: "Margot Robbie"
         },
         {
             title: 'Skydiving',
-            date: '12/03/2023',
-            imageUri: { uri: 'https://placekitten.com/101/101' }
+            date: '12/03/2023 2pm-3pm',
+            imageUri: { uri: 'https://cdn2.hubspot.net/hubfs/351592/IMG_8804.jpg' },
+            location: 'Sydney',
+            attendees: "7",
+            organizer: "Chris Evans"
         },
     ];
 
@@ -95,7 +109,7 @@ const ViewUserProfileScreen = ({ route }) => {
                         <Text style={ProfileStackStyles.header2}>Past Events</Text>
                         <View style={ProfileStackStyles.eventsGrid}>
                             {pastEventsData.map((event, index) => (
-                                <PastEvent key={index} event={event} />
+                                <PastEvent key={index} event={event} onPress={() => handleEventPress(event)} />
                             ))}
                         </View>
                     </View>
@@ -108,6 +122,12 @@ const ViewUserProfileScreen = ({ route }) => {
                 onBlock={handleBlock}
                 onReport={handleReport}
             />
+            <EventModal
+                isVisible={isModalVisible}
+                event={selectedEvent}
+                onClose={() => setIsModalVisible(false)}
+            />
+
         </SafeAreaView>
     );
 };
